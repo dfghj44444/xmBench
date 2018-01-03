@@ -2,7 +2,7 @@
 <manifest  xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.zeroxlab.benchmark"
     android:versionCode="19"
-    android:versionName="1.1.5"
+    android:versionName="1.1.6"
     >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,12 +11,12 @@
 
     <application
     android:allowBackup="true"
-    android:label="0xBenchmark"
+    android:label="好测"
     android:icon="@drawable/icon"
     >
 	<activity
 	android:name="Benchmark"
-	android:label="0xBenchmark"
+	android:label="邢敏好测"
 	android:screenOrientation="nosensor"
 	>
 	<intent-filter>

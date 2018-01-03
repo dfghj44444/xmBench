@@ -427,7 +427,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     mIconView.setImageResource(R.drawable.icon);
 
                     TextView mBannerInfo = new TextView(Benchmark.this);
-                    mBannerInfo.setText("0xbench\nSelect benchmarks in the tabs,\nor batch select:");
+                    mBannerInfo.setText("选择一个或多个测试进行跑分:");
 
                     d2CheckBox = new CheckBox(Benchmark.this);
                     d2CheckBox.setText(D2);

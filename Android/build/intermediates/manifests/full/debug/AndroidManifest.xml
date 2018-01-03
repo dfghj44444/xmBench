@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.zeroxlab.benchmark"
     android:versionCode="19"
-    android:versionName="1.1.5" >
+    android:versionName="1.1.6" >
 
     <uses-sdk android:minSdkVersion="7" />
 
@@ -14,11 +14,11 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@drawable/icon"
-        android:label="0xBenchmark"
+        android:label="好测"
         android:testOnly="true" >
         <activity
             android:name="org.zeroxlab.benchmark.Benchmark"
-            android:label="0xBenchmark"
+            android:label="邢敏好测"
             android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

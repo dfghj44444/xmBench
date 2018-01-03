@@ -270,7 +270,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 return builder3.create();
             case (4):
                 AlertDialog.Builder builder4 = new AlertDialog.Builder(this);
-                builder4.setMessage( "You have already uploaded results to this location." )
+                builder4.setMessage( "你已经上传过这个位置了。" )
                         .setTitle("Error")
                         .setPositiveButton("OK", null)
                 ;
