@@ -1,0 +1,198 @@
+[
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_c_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_c_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_icon.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\icon.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_rect.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\rect.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_3d.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_3d.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_crate.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\crate.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_2d_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_2d_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_arc.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\arc.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_misc.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_misc.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_eye_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_eye_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_icon.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_gc.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\gc.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_eye.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_eye.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_icon_auto.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-hdpi\\icon_auto.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_vm_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_vm_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_2d.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_2d.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_icon_auto.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-ldpi\\icon_auto.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_misc_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_misc_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_pi_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_pi_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_vm_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_vm_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_login_dialog.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\login_dialog.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_text.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\text.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_report.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\report.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_3d_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_3d_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_settings.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\settings.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_upload.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\upload.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_icon.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-ldpi\\icon.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_icon_auto.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-mdpi\\icon_auto.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_pi_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_pi_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_icon.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-mdpi\\icon.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_main.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_misc_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_misc_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_circle2.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\circle2.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_javascript.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\javascript.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_c.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_c.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_glass.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-hdpi\\glass.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_crate.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-mdpi\\crate.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_crate.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-ldpi\\crate.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_icon_auto.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\icon_auto.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_vm.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_vm.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_c_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_c_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_glass.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\glass.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_3d_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_3d_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_glass.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-ldpi\\glass.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_eye_b.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_eye_b.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_crate.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-hdpi\\crate.bmp"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_2d_w.png.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_2d_w.png"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable_ic_pi.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable\\ic_pi.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\layout_image.xml.flat",
+        "source": "E:\\xmperf\\Android\\res\\layout\\image.xml"
+    },
+    {
+        "merged": "E:\\xmperf\\Android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_glass.bmp.flat",
+        "source": "E:\\xmperf\\Android\\res\\drawable-mdpi\\glass.bmp"
+    }
+]

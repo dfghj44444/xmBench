@@ -1,0 +1,23 @@
+#Internal package file, do not edit.
+#Wed Jan 03 17:10:02 CST 2018
+2.base=E\:\\xmperf\\Android\\build\\intermediates\\assets\\debug
+0.path=sunspider-test-contents.js
+2.baseType=DIRECTORY
+3.base=E\:\\xmperf\\Android\\build\\intermediates\\assets\\debug
+2.set=ASSET
+1.path=sunspider-analyze-results.js
+4.base=E\:\\xmperf\\Android\\build\\intermediates\\assets\\debug
+count=5
+2.path=sunspider.css
+4.set=ASSET
+3.path=driver.html
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=sunspider-test-prefix.js
+1.baseType=DIRECTORY
+0.base=E\:\\xmperf\\Android\\build\\intermediates\\assets\\debug
+0.baseType=DIRECTORY
+3.set=ASSET
+1.base=E\:\\xmperf\\Android\\build\\intermediates\\assets\\debug
+4.baseType=DIRECTORY
+0.set=ASSET
