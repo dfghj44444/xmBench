@@ -17,11 +17,8 @@
 package org.zeroxlab.kubench;
 
 import org.zeroxlab.benchmark.Tester;
-
-
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import java.util.Random;

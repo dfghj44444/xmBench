@@ -20,10 +20,9 @@ package org.itri.teapot;
 
 import org.zeroxlab.benchmark.Tester;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 //public class TeapotES extends Tester implements SensorEventListener {
 public class TeapotES extends Tester {

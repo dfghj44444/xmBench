@@ -15,17 +15,8 @@
  */
 
 package org.zeroxlab.benchmark;
-
-import android.util.Log;
-
 import org.itri.teapot.TeapotES;
-import android.os.SystemClock;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-import android.os.Bundle;
 import java.util.ArrayList;
 
 public class CaseTeapot extends Case {

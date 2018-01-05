@@ -22,7 +22,7 @@ import org.zeroxlab.benchmark.Tester;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
+
 
 class MyGLSurfaceView extends GLSurfaceView {
     private TeapotRenderer mMyRenderer;

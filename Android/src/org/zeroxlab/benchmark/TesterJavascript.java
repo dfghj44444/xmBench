@@ -18,11 +18,7 @@
 
 package org.zeroxlab.benchmark;
 
-import org.zeroxlab.benchmark.R;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Message;
 import android.content.Intent;
 import android.webkit.WebView;
 import android.webkit.WebSettings;

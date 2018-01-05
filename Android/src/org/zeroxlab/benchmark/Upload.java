@@ -16,37 +16,23 @@
 
 package org.zeroxlab.benchmark;
 
-import org.zeroxlab.benchmark.MicroBenchmark;
-import org.zeroxlab.benchmark.R;
-
 import android.util.Log;
 import android.content.SharedPreferences;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
-
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Toast;
 import android.view.View;
-
-import android.text.TextWatcher;
-import android.text.Editable;
-
 import android.app.Dialog;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-
-import android.os.SystemClock;
 import android.os.Handler;
-import android.os.Bundle;
 import android.os.Message;
-
 import java.util.HashSet;
-
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;

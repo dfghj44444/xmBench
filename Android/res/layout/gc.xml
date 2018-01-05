@@ -9,7 +9,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
 >
-<AbsoluteLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
@@ -22,7 +22,7 @@
     android:typeface="monospace"
     />
   
-</AbsoluteLayout>
+</RelativeLayout>
 
 </ScrollView>
 </HorizontalScrollView>

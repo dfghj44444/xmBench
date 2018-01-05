@@ -15,17 +15,7 @@
  */
 
 package org.zeroxlab.benchmark;
-
-import android.util.Log;
-
 import com.nea.nehe.lesson16.Run;
-import android.os.SystemClock;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-import android.os.Bundle;
 import java.util.ArrayList;
 
 public class CaseNeheLesson16 extends Case {

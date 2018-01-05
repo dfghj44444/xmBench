@@ -17,17 +17,10 @@
  */
 
 package org.zeroxlab.utils;
-
-import android.util.Log;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 
 public class Util {
     public final static int PREF_MODE = Context.MODE_PRIVATE;

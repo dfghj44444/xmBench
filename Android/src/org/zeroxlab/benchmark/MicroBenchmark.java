@@ -16,9 +16,7 @@
 
 package org.zeroxlab.benchmark;
 
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,7 +24,6 @@ import java.net.URL;
 import android.util.Log;
 import android.os.Handler;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.os.Message;
 
 /* code adapted from Caliper Project */

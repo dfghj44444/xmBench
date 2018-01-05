@@ -16,11 +16,7 @@
 
 package org.zeroxlab.benchmark;
 
-import org.zeroxlab.benchmark.R;
 import org.zeroxlab.gc.GCBenchmark;
-
-import android.app.Activity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

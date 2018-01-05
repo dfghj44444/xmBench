@@ -20,9 +20,6 @@ import org.zeroxlab.benchmark.R;
 import org.zeroxlab.benchmark.Tester;
 
 import android.os.Bundle;
-import android.view.View;
-
-import org.zeroxlab.graphics.DrawArcView;
 
 public class DrawArc extends Tester {
     /** Called when the activity is first created. */

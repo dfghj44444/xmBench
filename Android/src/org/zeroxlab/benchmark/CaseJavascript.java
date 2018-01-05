@@ -21,16 +21,8 @@ package org.zeroxlab.benchmark;
 import java.util.ArrayList;
 
 import android.util.Log;
-
-import android.os.SystemClock;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.os.Bundle;
 
-import java.lang.Float;
 
 public class CaseJavascript extends Case {
 

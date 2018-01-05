@@ -20,7 +20,6 @@ package com.nea.nehe.lesson08;
 
 import org.zeroxlab. benchmark.Tester;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 /**

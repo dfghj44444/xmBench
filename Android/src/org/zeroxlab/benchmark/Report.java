@@ -15,20 +15,13 @@
  */
 
 package org.zeroxlab.benchmark;
-
-import android.util.Log;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.*;
-import java.nio.*;
 
-import java.util.LinkedList;
-
-import org.zeroxlab.benchmark.R;
 
 /* Construct a basic UI */
 public class Report extends Activity implements View.OnClickListener {

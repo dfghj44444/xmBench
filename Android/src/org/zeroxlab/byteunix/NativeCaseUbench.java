@@ -20,20 +20,10 @@
 package org.zeroxlab.byteunix;
 
 import org.zeroxlab.benchmark.*;
-
 import android.util.Log;
-
-import android.os.SystemClock;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
-
 import java.util.ArrayList;
-
-import org.zeroxlab.byteunix.NativeTesterUbench;
 
 public class NativeCaseUbench  extends Case {
 

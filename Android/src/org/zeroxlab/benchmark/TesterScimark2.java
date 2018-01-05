@@ -17,16 +17,12 @@
 package org.zeroxlab.benchmark;
 
 import jnt.scimark2.commandline;
-
 import android.util.Log;
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.content.Intent;
 import android.widget.TextView;
 import java.util.HashMap;
-import java.util.ArrayList;
+
 
 public class TesterScimark2 extends Tester {
 

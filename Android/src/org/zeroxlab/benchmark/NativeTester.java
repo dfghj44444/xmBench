@@ -26,15 +26,9 @@ import java.io.IOException;
 import java.lang.Math;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.zeroxlab.benchmark.R;
-
 import java.util.List;
-
 import java.net.Socket;
 import java.net.ServerSocket;
-
-import android.app.Activity;
 import android.util.Log;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -43,9 +37,6 @@ import android.os.Message;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.ScrollView;
-
-import android.content.pm.ActivityInfo;
-
 
 public abstract class NativeTester extends Tester {
 

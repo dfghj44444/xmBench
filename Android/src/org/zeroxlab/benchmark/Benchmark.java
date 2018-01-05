@@ -21,20 +21,15 @@ package org.zeroxlab.benchmark;
 
 import android.util.Log;
 
-import android.app.Activity;
-import android.app.ActivityManager;
+
 import android.app.ProgressDialog;
 import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -99,11 +94,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     private Button   mShow;
     private CheckBox mCheckList[];
     private TextView mDesc[];
-    private TextView mBannerInfo;
 
-    private ScrollView   mScrollView;
-    private LinearLayout mLinearLayout;
-    private LinearLayout mMainView;
     private TabHost mTabHost;
 
     LinkedList<Case> mCases;
@@ -390,7 +381,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mMainView = (LinearLayout)findViewById(R.id.main_view);
 
         mBannerInfo = (TextView)findViewById(R.id.banner_info);
-        mBannerInfo.setText("Hello!\nSelect cases to Run.\nUploaded results:\nhttp://0xbenchmark.appspot.com");
+        mBannerInfo.setText("Hello!\nSelect cases to Run.\nUploaded results:\nhttp://benchmark.bojoy.com");
         */
 
         mTabHost = getTabHost();
@@ -418,11 +409,11 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
                 if (tag.equals(MAIN)) {
                     LinearLayout mMainView = new LinearLayout(Benchmark.this);
-                    mMainView.setOrientation(1);
+                    mMainView.setOrientation(LinearLayout.VERTICAL);
                     ScrollView mListScroll = new ScrollView(Benchmark.this);
 
                     LinearLayout mMainViewContainer = new LinearLayout(Benchmark.this);
-                    mMainViewContainer.setOrientation(1);
+                    mMainViewContainer.setOrientation(LinearLayout.VERTICAL);
                     ImageView mIconView = new ImageView(Benchmark.this);
                     mIconView.setImageResource(R.drawable.icon);
 
@@ -454,7 +445,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     miscCheckBox.setOnClickListener(Benchmark.this);
 
                     TextView mWebInfo = new TextView(Benchmark.this);
-                    mWebInfo.setText("Uploaded results:\nhttp://0xbenchmark.appspot.com");
+                    mWebInfo.setText("手机天梯:\nhttp://benchmark.bojoy.com");
 
                     LinearLayout mButtonContainer = new LinearLayout(Benchmark.this);
                     mRun = new Button(Benchmark.this);
@@ -496,10 +487,10 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                 }
 
                 LinearLayout mMainView = new LinearLayout(Benchmark.this);
-                mMainView.setOrientation(1);
+                mMainView.setOrientation(LinearLayout.VERTICAL);
                 ScrollView mListScroll = new ScrollView(Benchmark.this);
                 LinearLayout mListContainer = new LinearLayout(Benchmark.this);
-                mListContainer.setOrientation(1);
+                mListContainer.setOrientation(LinearLayout.VERTICAL);
                 mListScroll.addView(mListContainer, fillParent);
                 mMainView.addView(mListScroll, fillWrap);
 
@@ -583,7 +574,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         }
 
         if (finish) {
-//            mBannerInfo.setText("Benchmarking complete.\nClick Show to upload.\nUploaded results:\nhttp://0xbenchmark.appspot.com");
+//            mBannerInfo.setText("Benchmarking complete.\nClick Show to upload.\nUploaded results:\nhttp://benchmark.bojoy.com");
             String result = getResult();
             writeResult(mOutputFile, result);
 

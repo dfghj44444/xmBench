@@ -17,8 +17,6 @@
 package org.zeroxlab.graphics;
 
 import org.zeroxlab.benchmark.Tester;
-
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

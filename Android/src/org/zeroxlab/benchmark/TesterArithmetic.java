@@ -19,10 +19,7 @@ package org.zeroxlab.benchmark;
 import org.zeroxlab.arithmetic.LinpackLoop;
 
 import android.util.Log;
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.content.Intent;
 import android.widget.TextView;
 
