@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import org.zeroxlab.utils.BenchUtil;
+import org.zeroxlab.benchmark.R;
 
 public class ActivitySettings extends Activity implements View.OnClickListener {
 

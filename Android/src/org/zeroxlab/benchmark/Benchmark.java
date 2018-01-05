@@ -109,6 +109,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     private final String VM = "VM";
     private final String NATIVE = "Native";
     private final String MISC = "Misc";
+    private final String INFO = "Info";
 
     private CheckBox d2CheckBox;
     private CheckBox d3CheckBox;
@@ -116,6 +117,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     private CheckBox vmCheckBox;
     private CheckBox nativeCheckBox;
     private CheckBox miscCheckBox;
+
 
     private HashMap< String, HashSet<Case> > mCategory = new HashMap< String, HashSet<Case> >();
 
@@ -169,7 +171,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mCategory.put(VM, new HashSet<Case>());
         mCategory.put(NATIVE, new HashSet<Case>());
         mCategory.put(MISC, new HashSet<Case>());
-
+        mCategory.put(INFO, new HashSet<Case>());
         // mflops
         mCases.add(arith);
         mCases.add(scimark2);
@@ -444,6 +446,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     miscCheckBox.setText(MISC);
                     miscCheckBox.setOnClickListener(Benchmark.this);
 
+
                     TextView mWebInfo = new TextView(Benchmark.this);
                     mWebInfo.setText("手机天梯:\nhttp://benchmark.bojoy.com");
 
@@ -522,6 +525,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mTabHost.addTab(mTabHost.newTabSpec(VM).setIndicator(VM, getResources().getDrawable(R.drawable.ic_vm)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(NATIVE).setIndicator(NATIVE, getResources().getDrawable(R.drawable.ic_c)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));
+        mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(mTCF));
     }
 
     public void onClick(View v) {
