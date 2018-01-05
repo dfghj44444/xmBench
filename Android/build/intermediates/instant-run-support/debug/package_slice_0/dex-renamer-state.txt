@@ -1,4 +1,0 @@
-#Wed Jan 03 17:34:51 CST 2018
-base.0=E\:\\xmperf\\Android\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
