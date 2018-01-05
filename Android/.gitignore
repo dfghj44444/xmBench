@@ -10,3 +10,4 @@ gen/
 libs/
 obj/
 build/*
+build/*/
