@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-    >
-<ScrollView
-    android:id="@+id/myScrollView"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    >
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    android:layout_height="fill_parent">
+    <TableLayout
+        android:stretchColumns="*"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
-        <TextView
-            android:id="@+id/myTextView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:typeface="monospace"
-            />
+        android:layout_height="fill_parent">
 
-    </RelativeLayout>
 
+            <TextView
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="您的CPU：高通925"/>
+
+
+
+    </TableLayout>
 </ScrollView>
-</HorizontalScrollView>
+
 

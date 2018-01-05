@@ -50,6 +50,8 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TextView;
 
+import com.sys.info.SysInfoActivity;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -135,7 +137,6 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onPause();
-   
     }
 
     @Override
@@ -158,13 +159,13 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         Case gc     = new CaseGC();
         Case libMicro = new NativeCaseMicro();
         Case libUbench = new NativeCaseUbench();
-
+        Case caseInfo = new CaseInfo();
         Case dc2 = new CaseDrawCircle2();
         Case dr = new CaseDrawRect();
         Case da = new CaseDrawArc();
         Case di = new CaseDrawImage();
         Case dt = new CaseDrawText();
-
+        //添加多选框
         mCategory.put(D2, new HashSet<Case>());
         mCategory.put(D3, new HashSet<Case>());
         mCategory.put(MATH, new HashSet<Case>());
@@ -176,10 +177,11 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mCases.add(arith);
         mCases.add(scimark2);
         mCases.add(javascript);
+       // mCases.add(caseInfo);
         mCategory.get(MATH).add(arith);
         mCategory.get(MATH).add(scimark2);
         mCategory.get(MISC).add(javascript);
-
+       // mCategory.get(MISC).add(caseInfo);
         // 2d
         mCases.add(canvas);
         mCases.add(circle);
@@ -525,17 +527,25 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mTabHost.addTab(mTabHost.newTabSpec(VM).setIndicator(VM, getResources().getDrawable(R.drawable.ic_vm)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(NATIVE).setIndicator(NATIVE, getResources().getDrawable(R.drawable.ic_c)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));
-        mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(mTCF));
+        //getLayoutInflater().inflate(R.id.unit_data, mTabHost.getTabContentView(), true);
+        Intent intent = new Intent().setClass(this, SysInfoActivity.class);
+        mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(intent));
     }
 
-    public void onClick(View v) {
-        if (v == mRun) {
+    public void onClick(View v)
+    {
+        if (v == mRun)
+        {
             int numberOfCaseChecked = 0;
-            for (int i = 0; i < mCheckList.length; i++) {
-                if (mCheckList[i].isChecked()) {
+            for (int i = 0; i < mCheckList.length; i++)
+            {
+                if (mCheckList[i].isChecked())
+                {
                     mCases.get(i).reset();
                     numberOfCaseChecked++;
-                } else {
+                }
+                else
+                {
                     mCases.get(i).clear();
                 }
             }
