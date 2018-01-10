@@ -16,8 +16,13 @@
 
 package org.zeroxlab.benchmark;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -25,6 +30,8 @@ import android.util.Log;
 import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
+
+import org.json.JSONObject;
 
 /* code adapted from Caliper Project */
 
@@ -69,8 +76,14 @@ class MicroBenchmark extends Thread {
 
     public void upload() {
         updateState(RUNNING);
+
+
         try {
-            URL url = new URL(postUrl + apiKey + "/" + benchmarkName);
+            URL url = new URL("http://localhost/entry.php");
+            String tesJson = "{ \"age\":30 }";
+            String another = postJSONObject("http://10.0.2.2/entry.php",tesJson);
+            //above is type1
+            //blow is type2
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
 
@@ -90,7 +103,49 @@ class MicroBenchmark extends Thread {
             return;
         }
         updateState(DONE);
+    }
 
+    String postJSONObject(String myurl, String parameters) {
+        HttpURLConnection conn = null;
+        try {
+            StringBuffer response = null;
+            URL url = new URL(myurl);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            writer.write(parameters);
+            writer.close();
+            out.close();
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode" + responseCode);
+            switch (responseCode) {
+                case 200:
+                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String inputLine;
+                    response = new StringBuffer();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+                    return response.toString();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.disconnect();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     public void run() {

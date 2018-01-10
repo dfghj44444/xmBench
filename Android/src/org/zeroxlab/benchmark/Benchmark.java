@@ -82,15 +82,15 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     public final static String TAG     = "Benchmark";
     public final static String PACKAGE = "org.zeroxlab.benchmark";
 
-    private final static String mOutputFile = "0xBenchmark";
+    private final static String mOutputFile = "xmBenchmark";
 
     private final static int GROUP_DEFAULT = 0;
     private final static int SETTINGS_ID = Menu.FIRST;
 
     private static String mXMLResult;
     private static String mJSONResult;
-    private final static String mOutputXMLFile = "0xBenchmark.xml";
-    private final static String mOutputJSONFile = "0xBenchmark.bundle";
+    private final static String mOutputXMLFile = "xmBenchmark.xml";
+    private final static String mOutputJSONFile = "xmBenchmark.bundle";
 
     private Button   mRun;
     private Button   mShow;
@@ -108,18 +108,13 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     private final String D2 = "2D";
     private final String D3 = "3D";
     private final String MATH = "Math";
-    private final String VM = "VM";
     private final String NATIVE = "Native";
-    private final String MISC = "Misc";
     private final String INFO = "Info";
 
     private CheckBox d2CheckBox;
     private CheckBox d3CheckBox;
     private CheckBox mathCheckBox;
-    private CheckBox vmCheckBox;
     private CheckBox nativeCheckBox;
-    private CheckBox miscCheckBox;
-
 
     private HashMap< String, HashSet<Case> > mCategory = new HashMap< String, HashSet<Case> >();
 
@@ -131,13 +126,8 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     boolean mCheck3D = false;
     boolean mCheckVM = false;
     boolean mCheckNative = false;
-    boolean mCheckMisc = false;
+    //boolean mCheckMisc = false;
     boolean mAutoUpload = false;
-
-    @Override
-    protected void onDestroy() {
-        super.onPause();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,22 +146,22 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         Case nehe08 = new CaseNeheLesson08();
         Case nehe16 = new CaseNeheLesson16();
         Case teapot = new CaseTeapot();
-        Case gc     = new CaseGC();
+        //Case gc     = new CaseGC();
         Case libMicro = new NativeCaseMicro();
         Case libUbench = new NativeCaseUbench();
-        Case caseInfo = new CaseInfo();
+        //Case caseInfo = new CaseInfo();
         Case dc2 = new CaseDrawCircle2();
         Case dr = new CaseDrawRect();
         Case da = new CaseDrawArc();
         Case di = new CaseDrawImage();
         Case dt = new CaseDrawText();
-        //添加多选框
+        //主页面添加多选框
         mCategory.put(D2, new HashSet<Case>());
         mCategory.put(D3, new HashSet<Case>());
         mCategory.put(MATH, new HashSet<Case>());
-        mCategory.put(VM, new HashSet<Case>());
+       // mCategory.put(VM, new HashSet<Case>());
         mCategory.put(NATIVE, new HashSet<Case>());
-        mCategory.put(MISC, new HashSet<Case>());
+       // mCategory.put(MISC, new HashSet<Case>());
         mCategory.put(INFO, new HashSet<Case>());
         // mflops
         mCases.add(arith);
@@ -180,8 +170,8 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
        // mCases.add(caseInfo);
         mCategory.get(MATH).add(arith);
         mCategory.get(MATH).add(scimark2);
-        mCategory.get(MISC).add(javascript);
-       // mCategory.get(MISC).add(caseInfo);
+       // mCategory.get(MISC).add(javascript);
+
         // 2d
         mCases.add(canvas);
         mCases.add(circle);
@@ -211,8 +201,8 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mCategory.get(D3).add(teapot);
 
         // vm
-        mCases.add(gc);
-        mCategory.get(VM).add(gc);
+        //mCases.add(gc);
+        //mCategory.get(VM).add(gc);
 
         // native
         mCases.add(libMicro);
@@ -247,17 +237,17 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             d3CheckBox.performClick();
         }
 
-        if (mCheckVM && !vmCheckBox.isChecked()) {
-            vmCheckBox.performClick();
-        }
+//        if (mCheckVM && !vmCheckBox.isChecked()) {
+//            vmCheckBox.performClick();
+//        }
 
         if (mCheckNative && !nativeCheckBox.isChecked()) {
             nativeCheckBox.performClick();
         }
 
-        if (mCheckMisc && !miscCheckBox.isChecked()) {
-            miscCheckBox.performClick();
-        }
+//        if (mCheckMisc && !miscCheckBox.isChecked()) {
+//            miscCheckBox.performClick();
+//        }
         /*
         if (intent.getBooleanExtra("AUTO", false)) {
             ImageView head = (ImageView)findViewById(R.id.banner_img);
@@ -436,17 +426,17 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     mathCheckBox.setText(MATH);
                     mathCheckBox.setOnClickListener(Benchmark.this);
 
-                    vmCheckBox = new CheckBox(Benchmark.this);
-                    vmCheckBox.setText(VM);
-                    vmCheckBox.setOnClickListener(Benchmark.this);
+//                    vmCheckBox = new CheckBox(Benchmark.this);
+//                    vmCheckBox.setText(VM);
+//                    vmCheckBox.setOnClickListener(Benchmark.this);
 
                     nativeCheckBox = new CheckBox(Benchmark.this);
                     nativeCheckBox.setText(NATIVE);
                     nativeCheckBox.setOnClickListener(Benchmark.this);
 
-                    miscCheckBox = new CheckBox(Benchmark.this);
-                    miscCheckBox.setText(MISC);
-                    miscCheckBox.setOnClickListener(Benchmark.this);
+//                    miscCheckBox = new CheckBox(Benchmark.this);
+//                    miscCheckBox.setText(MISC);
+//                    miscCheckBox.setOnClickListener(Benchmark.this);
 
 
                     TextView mWebInfo = new TextView(Benchmark.this);
@@ -478,9 +468,9 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     mMainViewContainer.addView(mathCheckBox);
                     mMainViewContainer.addView(d2CheckBox);
                     mMainViewContainer.addView(d3CheckBox);
-                    mMainViewContainer.addView(vmCheckBox);
+//                    mMainViewContainer.addView(vmCheckBox);
                     mMainViewContainer.addView(nativeCheckBox);
-                    mMainViewContainer.addView(miscCheckBox);
+//                    mMainViewContainer.addView(miscCheckBox);
                     mMainViewContainer.addView(mWebInfo);
                     mMainViewContainer.addView(mButtonContainer, fillWrap);
                     mMainViewContainer.addView(mTracker, 0,0);
@@ -524,9 +514,9 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mTabHost.addTab(mTabHost.newTabSpec(D2).setIndicator(D2, getResources().getDrawable(R.drawable.ic_2d)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(D3).setIndicator(D3, getResources().getDrawable(R.drawable.ic_3d)).setContent(mTCF));
         mTabHost.addTab(mTabHost.newTabSpec(MATH).setIndicator(MATH, getResources().getDrawable(R.drawable.ic_pi)).setContent(mTCF));
-        mTabHost.addTab(mTabHost.newTabSpec(VM).setIndicator(VM, getResources().getDrawable(R.drawable.ic_vm)).setContent(mTCF));
+        //mTabHost.addTab(mTabHost.newTabSpec(VM).setIndicator(VM, getResources().getDrawable(R.drawable.ic_vm)).setContent(mTCF));关闭GC测试
         mTabHost.addTab(mTabHost.newTabSpec(NATIVE).setIndicator(NATIVE, getResources().getDrawable(R.drawable.ic_c)).setContent(mTCF));
-        mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));
+        //mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));关闭SunSpider
         //getLayoutInflater().inflate(R.id.unit_data, mTabHost.getTabContentView(), true);
         Intent intent = new Intent().setClass(this, SysInfoActivity.class);
         mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(intent));
@@ -565,7 +555,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             intent.setClassName(Report.packageName(), Report.fullClassName());
             startActivity(intent);
         } else if (v == d2CheckBox || v == d3CheckBox || v == mathCheckBox ||
-                   v == vmCheckBox || v == nativeCheckBox || v == miscCheckBox) {
+                   v == nativeCheckBox) {
             int length = mCases.size();
             String tag = ((CheckBox)v).getText().toString();
             for (int i = 0; i < length; i++) {

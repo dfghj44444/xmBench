@@ -2,24 +2,34 @@ package com.sys.info;
 
 import android.app.Activity;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.opengl.GLES10;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.widget.TextView;
-
 import org.zeroxlab.benchmark.R;
-
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
+
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL10;
 
 public class SysInfoActivity extends Activity {
     //ProgressBar progressBar = (ProgressBar) getActivity().findViewById(R.id.ctrlActivityIndicator)
@@ -34,13 +44,39 @@ public class SysInfoActivity extends Activity {
 
     private void InitViews() {
         TextView theText = (TextView) this.findViewById(R.id.txtCPU);
-        theText.setText( getCpuInfo());
+        theText.setText("-----------------手机-------------------\n");
+        theText.append( getInfo());
+        theText.append("\n -----------------CPU------------------- \n" );
+        theText.append( getCpuInfo());
         theText.append("\n" + getTotalMemory());
-        theText.append("\n" + getHeightAndWidth());
+
+        theText.append("\n -----------------GPU------------------- \n" );
+        theText.append("GLES支持:GLES"+getGlVersion(getApplicationContext()));
+        theText.append("\n -----------------其他------------------- \n" );
+
+        theText.append(getHeightAndWidth());
         theText.append("\n基带:" + getBaseBandVersion());
         theText.append("\nKernel:" + getKernelVersion());
-        theText.append("\n" + getInfo());
         theText.append("\n" + isRoot());
+    }
+
+    public String getGpuInfo() {
+
+        String theStrLog= "Renderer:" + GLES10.glGetString(GL10.GL_RENDERER);
+        theStrLog += "Vendor:" + GLES10.glGetString(GL10.GL_VENDOR);
+         theStrLog +="GL_VERSION = " + GLES10.glGetString(GL10.GL_VERSION);
+        theStrLog += "GL_EXTENSIONS = " + GLES10.glGetString(GL10.GL_EXTENSIONS);
+
+        return theStrLog;
+    }
+    public String getGlVersion(Context ctx) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+            ConfigurationInfo configurationInfo = am.getDeviceConfigurationInfo();
+            return configurationInfo.getGlEsVersion();
+        } else {
+            return GLES10.glGetString(GLES10.GL_VERSION);
+        }
     }
 
     /**
@@ -158,8 +194,10 @@ public class SysInfoActivity extends Activity {
         String imsi = mTm.getSubscriberId();
         String mtype = android.os.Build.MODEL; // 手机型号
         String mtyb= android.os.Build.BRAND;//手机品牌
+        String carrier= android.os.Build.MANUFACTURER;
         String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
-        return "手机IMEI号："+imei+"\n手机IESI号："+imsi+"\n手机型号："+mtype+"\n手机品牌："+mtyb+"\n手机号码："+numer;
+        String OSver = android.os.Build.VERSION.RELEASE;
+        return "手机品牌："+mtyb + " " +carrier +"\n手机型号："+mtype+"\nAndroid版本:"+ OSver +"\n手机号码："+numer+"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
     }
     /**
      * 获取手机MAC地址
@@ -191,9 +229,38 @@ public class SysInfoActivity extends Activity {
             str2 = localBufferedReader.readLine();
             arrayOfString = str2.split("\\s+");
             cpuInfo[1] += arrayOfString[2];
+
             localBufferedReader.close();
         } catch (IOException e) {
         }
-        return "CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuInfo[1];
+        return "CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuInfo[1] +"MHz\nCPU核心数目："+ getNumCores();
+    }
+
+    private int getNumCores() {
+        //Private Class to display only CPU devices in the directory listing
+        class CpuFilter implements FileFilter {
+            @Override
+            public boolean accept(File pathname) {
+                //Check if filename is "cpu", followed by a single digit number
+                if(Pattern.matches("cpu[0-9]+", pathname.getName())) {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        try {
+            //Get directory containing CPU info
+            File dir = new File("/sys/devices/system/cpu/");
+            //Filter to only list the devices we care about
+            File[] files = dir.listFiles(new CpuFilter());
+            Log.d("warning", "CPU Count: "+files.length);
+            //Return the number of cores (virtual CPU devices)
+            return files.length;
+        } catch(Exception e) {
+            Log.d("warning", "CPU Count: Failed.");
+            e.printStackTrace();
+            return 1;
+        }
     }
 }

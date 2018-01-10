@@ -49,7 +49,6 @@ public class Upload extends Activity implements View.OnClickListener {
     public final static String XML = "XML";
     public final static String AUTOUPLOAD = "AUTOUPLOAD";
 
-    public final static String mMobileLoginUrl = "http://0xbenchmark.appspot.com/mobileLogin";
 
     EditText mBenchName;
     EditText mEmail;
@@ -238,7 +237,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 return builder.create();
             case (2):
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-                builder2.setMessage("Upload failed.")
+                builder2.setMessage("上传失败.")
                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -274,7 +273,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 webSettings.setJavaScriptEnabled(true);
                 webSettings.setSupportZoom(false);
 
-                mWebView.loadUrl(mMobileLoginUrl);
+               // mWebView.loadUrl(mMobileLoginUrl);
                 return mWebDialog;
 
             case (6):
