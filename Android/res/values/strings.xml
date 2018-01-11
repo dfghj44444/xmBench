@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_run_text">Run</string>
-    <string name="btn_show_text">Show</string>
-    <string name="btn_upload_text">Upload</string>
+    <string name="btn_run_text">跑！</string>
+    <string name="btn_show_text">天梯</string>
+    <string name="btn_upload_text">上传</string>
 
-    <string name="txtvw_upload_help">点击 "send" 发送到默认页面, or check "login" to create your own page (you need to get apikey from BenchWeb first).</string>
-    <string name="txtvw_benchname">Upload to benchmark page:</string>
+    <string name="txtvw_upload_help">点击 "send" 发送到默认页面, 或者勾选 "登录" 来创建你的个人界面 (暂不支持).</string>
+    <string name="txtvw_benchname">上传到天梯页面:</string>
     <string name="txtvw_email">Email:</string>
     <string name="txtvw_api">API Key:</string>
-    <string name="btn_send_text">Send</string>
-    <string name="btn_back_text">Done</string>
-    <string name="btn_login_google">Login for API-key</string>
+    <string name="btn_send_text">发送</string>
+    <string name="btn_back_text">完成</string>
+    <string name="btn_login_google">登录获取API-key</string>
 
     <string name="default_benchname">PublicPage</string>
-    <string name="default_appspot">xmbenchmark</string>
+    <string name="default_appspot">192.168.21.58</string>
     <string name="default_email">wangxnigmin@bojoy.com</string>
-    <string name="default_api">32935947-ed54-43b3-b3b2-a38223c6ec47</string>
+    <string name="default_api">0000</string>
 
-    <string name="login">Login</string>
+    <string name="login">登录</string>
 
-    <string name="settings_path_hint">Save result to...</string>
+    <string name="settings_path_hint">保存结果到...</string>
     <string name="settings_custom_path">Customize</string>
     <string name="settings_edit_path">Edit Custom Path</string>
 
-    <string name="menu_settings">Settings</string>
+    <string name="menu_settings">设置</string>
     <!-- its not typo -->
     <string name="banner_info_text">Hell World!</string>
 </resources>

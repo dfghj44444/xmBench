@@ -31,8 +31,16 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 /* code adapted from Caliper Project */
 
 class MicroBenchmark extends Thread {
@@ -43,7 +51,7 @@ class MicroBenchmark extends Thread {
     final static String STATE = "STATE";
     final static String MSG = "MSG";
     final static String TAG = "MicroBenchmarkThread";
-
+    final static int PRETTY_PRINT_INDENT_FACTOR = 4;
     Handler mHandler;
 
     String xml;
@@ -76,33 +84,40 @@ class MicroBenchmark extends Thread {
 
     public void upload() {
         updateState(RUNNING);
+        if(xml.length()==0) {
+            updateState(FAILED,"空字符串");
+            return;
+        }
 
+        String ret = postJSONObject(postUrl+"entry.php",xml2json(xml));
 
-        try {
-            URL url = new URL("http://localhost/entry.php");
-            String tesJson = "{ \"age\":30 }";
-            String another = postJSONObject("http://10.0.2.2/entry.php",tesJson);
-            //above is type1
-            //blow is type2
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
-
-            OutputStream post = urlConnection.getOutputStream();
-            Log.e(TAG, xml);
-            post.write(xml.getBytes());
-
-            int responseCode = urlConnection.getResponseCode();
-            Log.e(TAG, ""+responseCode);
-
-            if (responseCode != 200) {
-                updateState(FAILED, "Connection failed with response code " + responseCode);
-                return;
-            }
-        } catch (IOException e) {
-            updateState(FAILED, e.toString());
+        Log.e(TAG, ""+ret);
+        if(ret!="success")
+        {
+            updateState(FAILED,ret);
             return;
         }
         updateState(DONE);
+    }
+
+    private String xml2json(String theXml){
+        String ret = "";
+        XmlMapper xmlMapper = new XmlMapper();
+        try {
+            JsonNode node = xmlMapper.readTree(theXml);
+
+            ObjectMapper jsonMapper = new ObjectMapper();
+            ret = jsonMapper.writeValueAsString(node);
+        }
+        catch (JsonProcessingException e)
+        {
+            String test  =e.toString();
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.toString());
+        }
+        return  ret;
     }
 
     String postJSONObject(String myurl, String parameters) {
