@@ -118,7 +118,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
     private HashMap< String, HashSet<Case> > mCategory = new HashMap< String, HashSet<Case> >();
 
-    private final String trackerUrl = "http://0xbenchmark.appspot.com/static/MobileTracker.html";
+    private final String ladderUrl = "http://192.168.21.58/ladder.php";
 
     boolean mAutoRun = false;
     boolean mCheckMath = false;
@@ -440,7 +440,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
 
                     TextView mWebInfo = new TextView(Benchmark.this);
-                    mWebInfo.setText("手机天梯:\nhttp://benchmark.bojoy.com");
+                    mWebInfo.setText("手机天梯:\nhttp://benchmark.bojoy.com/ladder.php");
 
                     LinearLayout mButtonContainer = new LinearLayout(Benchmark.this);
                     mRun = new Button(Benchmark.this);
@@ -462,7 +462,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                             Log.e(TAG, "Track err: " + description);
                         }
                     });
-                    mTracker.loadUrl(trackerUrl);
+                    mTracker.loadUrl(ladderUrl);
                     mMainViewContainer.addView(mIconView,wrapContent);
                     mMainViewContainer.addView(mBannerInfo);
                     mMainViewContainer.addView(mathCheckBox);

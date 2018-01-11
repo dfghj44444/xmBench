@@ -1,7 +1,7 @@
 ant.properties
 proguard.cfg
 project.properties
-0xbench.keystore
+xmbench.keystore
 local.properties
 .*.swp
 .*.swo

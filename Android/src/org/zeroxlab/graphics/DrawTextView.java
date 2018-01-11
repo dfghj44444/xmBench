@@ -29,8 +29,8 @@ import java.util.Random;
 
 class DrawTextView extends SurfaceView {
 
-    public final String TEXT1 = "0xbench";
-    public final String TEXT2 = "0xlab";
+    public final String TEXT1 = "bench";
+    public final String TEXT2 = "邢敏";
     public final int TIMES = 10;
 
     private Paint bgPaint;

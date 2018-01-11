@@ -186,9 +186,9 @@ public class Upload extends Activity implements View.OnClickListener {
             attr += " BenchVersionName=\"" + versionName + "\"";
             attr += " apiKey=\"" + apiKey + "\"";
             attr += " benchmark=\"" + benchName + "\"";
-            _mXML = new StringBuffer("");
-            //_index = _mXML.indexOf("result") + 6;
-            //_mXML.insert(_index, attr);
+            _mXML = new StringBuffer(mXML);
+            _index = _mXML.indexOf("result") + 6;
+            _mXML.insert(_index, attr);
             Log.e(TAG, _mXML.toString());
 
             mURL = "http://" + getString(R.string.default_appspot) + ":80/";
