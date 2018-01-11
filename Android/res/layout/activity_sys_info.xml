@@ -15,8 +15,6 @@
             android:padding="5dp"
             android:text="您的CPU：高通925" />
 
-
-
     </TableLayout>
 </ScrollView>
 

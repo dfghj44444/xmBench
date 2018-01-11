@@ -693,7 +693,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             testRunsObject.put("time_check_performed", false);
             // TODO: should be UUID version 1
             testRunsObject.put("analyzer_assigned_uuid", UUID.randomUUID().toString());
-            testRunsObject.put("test_id", "0xbench");
+            testRunsObject.put("test_id", "xmbench");
 
             JSONArray testResultsList = new JSONArray();
             Case myCase;

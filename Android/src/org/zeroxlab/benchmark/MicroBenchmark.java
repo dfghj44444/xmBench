@@ -26,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.os.Debug;
 import android.util.Log;
 import android.os.Handler;
 import android.os.Bundle;
@@ -92,11 +93,14 @@ class MicroBenchmark extends Thread {
         String ret = postJSONObject(postUrl+"entry.php",xml2json(xml));
 
         Log.e(TAG, ""+ret);
-        if(ret!="success")
+        if(ret.equals("success"))
         {
+            System.out.println(ret);
             updateState(FAILED,ret);
             return;
         }
+
+
         updateState(DONE);
     }
 

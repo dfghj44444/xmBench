@@ -16,6 +16,7 @@
 
 package org.zeroxlab.benchmark;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.content.SharedPreferences;
 import android.app.Activity;
@@ -72,6 +73,10 @@ public class Upload extends Activity implements View.OnClickListener {
     boolean mLogedin = false;
     boolean mAutoUpload = false;
 
+    String m_imei = "";
+
+    String m_type = ""; // 手机型号
+    String m_name = "";//手机品牌
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -136,6 +141,12 @@ public class Upload extends Activity implements View.OnClickListener {
         if (mAutoUpload) {
             onClick(mSend);
         }
+
+        TelephonyManager mTm = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
+        m_imei = mTm.getDeviceId();
+
+        m_type = android.os.Build.MODEL; // 手机型号
+        m_name= android.os.Build.BRAND;//手机品牌
     }
 
     private String trimTail(String text) {
@@ -186,6 +197,9 @@ public class Upload extends Activity implements View.OnClickListener {
             attr += " BenchVersionName=\"" + versionName + "\"";
             attr += " apiKey=\"" + apiKey + "\"";
             attr += " benchmark=\"" + benchName + "\"";
+            attr += " imei=\"" + m_imei + "\"";
+            attr += " name=\"" + m_name + "\"";
+            attr += " brand=\"" + m_type + "\"";
             _mXML = new StringBuffer(mXML);
             _index = _mXML.indexOf("result") + 6;
             _mXML.insert(_index, attr);
