@@ -93,7 +93,7 @@ class MicroBenchmark extends Thread {
         String ret = postJSONObject(postUrl+"entry.php",xml2json(xml));
 
         Log.e(TAG, ""+ret);
-        if(ret.equals("success"))
+        if(!ret.equals("success"))
         {
             System.out.println(ret);
             updateState(FAILED,ret);
