@@ -48,8 +48,8 @@ public class Upload extends Activity implements View.OnClickListener {
 
     public final static String TAG = "Upload";
     public final static String XML = "XML";
+    public final static String JSON = "JSON";
     public final static String AUTOUPLOAD = "AUTOUPLOAD";
-
 
     EditText mBenchName;
     EditText mEmail;
@@ -60,6 +60,7 @@ public class Upload extends Activity implements View.OnClickListener {
 
     String mURL;
     String mXML;
+    String mJSON;
     String mFailMsg;
 
     String mHash;
@@ -107,6 +108,7 @@ public class Upload extends Activity implements View.OnClickListener {
 
         Intent intent = getIntent();
         mXML = intent.getStringExtra(XML);
+        mJSON = intent.getStringExtra(JSON);
         mAutoUpload = intent.getBooleanExtra(AUTOUPLOAD, false);
 
         mUploadHandler = new Handler() {
@@ -166,7 +168,7 @@ public class Upload extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         Log.i(TAG, "onclick listener");
         if (v == mSend) {
-            StringBuffer _mXML;
+
             int _index;
             String attr;
 
@@ -193,20 +195,20 @@ public class Upload extends Activity implements View.OnClickListener {
             }
 
             attr = "";
-            attr += " BenchVersionCode=\"" + String.valueOf(versionCode) + "\"";
-            attr += " BenchVersionName=\"" + versionName + "\"";
-            attr += " apiKey=\"" + apiKey + "\"";
-            attr += " benchmark=\"" + benchName + "\"";
-            attr += " imei=\"" + m_imei + "\"";
-            attr += " name=\"" + m_name + "\"";
-            attr += " brand=\"" + m_type + "\"";
-            _mXML = new StringBuffer(mXML);
-            _index = _mXML.indexOf("result") + 6;
-            _mXML.insert(_index, attr);
-            Log.e(TAG, _mXML.toString());
+            attr += "\"BenchVersionCode\":\"" + String.valueOf(versionCode) + "\",";
+            attr += "\"BenchVersionName\":\"" + versionName + "\",";
+            attr += "\" apiKey\":\"" + apiKey + "\",";
+            attr += "\"benchmark\":\"" + benchName + "\",";
+            attr += "\"imei\":\"" + m_imei + "\",";
+            attr += "\"name\":\"" + m_name + "\",";
+            attr += "\"brand\":\"" + m_type + "\",";
+            StringBuffer _mJSON = new StringBuffer(mJSON);
+
+            _mJSON.insert(1, attr);
+            Log.e(TAG, _mJSON.toString());
 
             mURL = "http://" + getString(R.string.default_appspot) + ":80/";
-            mb = new MicroBenchmark(_mXML.toString(), mURL, apiKey, benchName, mUploadHandler) ;
+            mb = new MicroBenchmark(_mJSON.toString(), mURL, apiKey, benchName, mUploadHandler) ;
             // this is not really a hash
             mHash = apiKey + benchName;
             if (!mHashSet.contains(mHash)){

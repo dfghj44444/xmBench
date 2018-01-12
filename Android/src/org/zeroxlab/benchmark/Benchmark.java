@@ -548,6 +548,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             Intent intent = new Intent();
             intent.putExtra(Report.REPORT, result);
             intent.putExtra(Report.XML, mXMLResult);
+            intent.putExtra(Report.JSON, mJSONResult);
             if (mAutoUpload) {
                 intent.putExtra(Report.AUTOUPLOAD, true);
                 mAutoUpload = false;
@@ -690,10 +691,10 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             JSONArray testRunsArray = new JSONArray();
             JSONObject testRunsObject = new JSONObject();
             testRunsObject.put("analyzer_assigned_date", sdf.format(date));
-            testRunsObject.put("time_check_performed", false);
+            // testRunsObject.put("time_check_performed", false);
             // TODO: should be UUID version 1
-            testRunsObject.put("analyzer_assigned_uuid", UUID.randomUUID().toString());
-            testRunsObject.put("test_id", "xmbench");
+            //testRunsObject.put("analyzer_assigned_uuid", UUID.randomUUID().toString());
+            //testRunsObject.put("test_id", "xmbench");
 
             JSONArray testResultsList = new JSONArray();
             Case myCase;
@@ -762,8 +763,9 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         }
 
         try {
-            file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
+            file.createNewFile();
+
             fos.write(output.getBytes());
             fos.flush();
         } catch (Exception e) {

@@ -29,12 +29,14 @@ public class Report extends Activity implements View.OnClickListener {
     public final static String TAG = "Repord";
     public final static String REPORT = "REPORT";
     public final static String XML = "XML";
+    public final static String JSON = "JSON";
     public final static String AUTOUPLOAD = "AUTOUPLOAD";
     private TextView mTextView;
 
     private Button mUpload;
     private Button mBack;
     private String mXMLResult;
+    private String mJSONResult;
     boolean mAutoUpload = false;
 
     @Override
@@ -53,6 +55,7 @@ public class Report extends Activity implements View.OnClickListener {
         Intent intent = getIntent();
         String report = intent.getStringExtra(REPORT);
         mXMLResult = intent.getStringExtra(XML);
+        mJSONResult = intent.getStringExtra(JSON);
         mAutoUpload = intent.getBooleanExtra(AUTOUPLOAD, false);
 
         if (report == null || report.equals("")) {
@@ -76,6 +79,7 @@ public class Report extends Activity implements View.OnClickListener {
         } else if (v == mUpload) {
             Intent intent = new Intent();
             intent.putExtra(Upload.XML, mXMLResult);
+            intent.putExtra(Upload.JSON, mJSONResult);
             if (mAutoUpload) {
                 intent.putExtra(Upload.AUTOUPLOAD, true);
             }
