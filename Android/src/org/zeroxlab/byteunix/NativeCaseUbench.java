@@ -36,7 +36,7 @@ public class NativeCaseUbench  extends Case {
     public NativeCaseUbench() {
         super("NativeCaseUbench", "org.zeroxlab.byteunix.NativeTesterUbench", Repeat, Round);
 
-        mType = "ByteUnix";
+        mType = "sys";
         String [] _tmp = {
             "system", 
         };
@@ -50,7 +50,7 @@ public class NativeCaseUbench  extends Case {
     }
 
     public String getDescription() {
-        return "(Requires root and pre-deployed binaries) UnixBench is the original BYTE UNIX benchmark suite, updated and revised by many people over the years. Takes about 30 minutes to run.";
+        return "(需要Root)UnixBench是一个BYTE UNIX测试套件。需要跑30分钟。";
     }
 
     private void generateInfo() {

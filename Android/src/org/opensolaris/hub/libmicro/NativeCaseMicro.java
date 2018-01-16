@@ -42,7 +42,7 @@ public class NativeCaseMicro  extends Case {
     public NativeCaseMicro() {
         super("NativeCaseMicro", "org.opensolaris.hub.libmicro.NativeTesterMicro", Repeat, Round);
 
-        mType = "syscall-nsec";
+        mType = "sys";
         String [] _tmp = {
             "syscall", 
         };
@@ -56,7 +56,7 @@ public class NativeCaseMicro  extends Case {
     }
 
     public String getDescription() {
-        return "(Requires root and pre-deployed binaries) LibMicro is a portable set of microbenchmarks that many Solaris engineers used during Solaris 10 development to measure the performance of various system and library calls.";
+        return "(需要Root)LibMicro是一个移动宏测试集，用于测试系统和库调用的效率.";
     }
 
     private void generateInfo() {

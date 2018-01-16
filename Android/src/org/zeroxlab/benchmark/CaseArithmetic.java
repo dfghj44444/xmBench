@@ -34,7 +34,7 @@ public class CaseArithmetic extends Case {
     CaseArithmetic() {
         super("CaseArithmetic", "org.zeroxlab.benchmark.TesterArithmetic", Repeat, Round);
 
-        mType = "mflops";
+        mType = "math";
         String [] _tmp = {
             "numeric",
             "mflops",
@@ -50,7 +50,7 @@ public class CaseArithmetic extends Case {
     }
 
     public String getDescription() {
-        return "The Linpack Benchmark is a numerically intensive test that has been used for years to measure the floating point performance of computers.";
+        return "Linpack是一个浮点数性能测试工具。";
     }
 
     private void generateInfo() {

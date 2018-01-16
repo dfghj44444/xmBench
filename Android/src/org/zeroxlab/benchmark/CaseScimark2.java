@@ -35,7 +35,7 @@ public class CaseScimark2 extends Case {
     CaseScimark2() {
         super("CaseScimark2", "org.zeroxlab.benchmark.TesterScimark2", Repeat, Round);
 
-        mType = "mflops";
+        mType = "math";
         String [] _tmp = {
             "mflops",
             "numeric",
@@ -121,10 +121,8 @@ public class CaseScimark2 extends Case {
                 for (int k = 0; k < _tmp.length; k++)
                     s.mResults.add(_tmp[k]);
             }
-
             scenarios.add(s);
         }
-
         return scenarios;
     }
 

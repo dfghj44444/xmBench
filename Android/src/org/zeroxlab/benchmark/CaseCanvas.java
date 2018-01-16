@@ -34,7 +34,7 @@ public class CaseCanvas extends Case{
         mTags = _tmp;
 
     }
-
+    // as test_case_di
     public String getTitle() {
         return "Draw Canvas";
     }

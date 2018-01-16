@@ -90,7 +90,6 @@ class MicroBenchmark extends Thread {
             updateState(FAILED,"空字符串");
             return;
         }
-        String testXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><result BenchVersionCode=\"19\" BenchVersionName=\"1.1.6\" apiKey=\"0000\" benchmark=\"PublicPage\" imei=\"000000000000000\" name=\"Android\" brand=\"sdk_phone_armv7\" executedTimestamp=\"2018-01-12T03:11:24GMT+00:00\" manufacturer=\"unknown\" model=\"sdk_phone_armv7:sdk_phone_armv7-userdebug 5.1.1 LMY48X 3079158 test-keys\" buildTimestamp=\"2016-07-20T21:24:46GMT+00:00\" orientation=\"1\" version=\"Linux version 3.4.67-01422-gd3ffcc7-dirty (digit@tyrion.par.corp.google.com) (gcc version 4.8 (GCC) ) #1 PREEMPT Tue Sep 16 19:34:06 CEST 2014\" cpu=\"ARMv7 Processor rev 0 (v7l):Goldfish:0000\"><scenario benchmark=\"Linpack\" unit=\"mflops\" tags=\"numeric,mflops,scientific,\">0.12979591816040717 </scenario><scenario benchmark=\"DrawCanvas\" unit=\"2d-fps\" tags=\"2d,render,view,\">19.059720993041992 19.32740592956543 19.710906982421875 </scenario><scenario benchmark=\"OpenGLCube\" unit=\"3d-fps\" tags=\"3d,opengl,render,apidemo,\">13.451165199279785 14.418779373168945 14.137472152709961 </scenario></result>";
         String ret = postJSONObject(postUrl+"entry.php",json);
 
         Log.e(TAG, ""+ret);
