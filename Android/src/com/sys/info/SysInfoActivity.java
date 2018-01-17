@@ -191,13 +191,16 @@ public class SysInfoActivity extends Activity {
     private String getInfo() {
         TelephonyManager mTm = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
         String imei = mTm.getDeviceId();
+        if(imei == null)
+            imei="00000";
         String imsi = mTm.getSubscriberId();
         String mtype = android.os.Build.MODEL; // 手机型号
         String mtyb= android.os.Build.BRAND;//手机品牌
         String carrier= android.os.Build.MANUFACTURER;
         String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
+
         String OSver = android.os.Build.VERSION.RELEASE;
-        return "手机品牌："+mtyb + " " +carrier +"\n手机型号："+mtype+"\nAndroid版本:"+ OSver +"\n手机号码："+numer+"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
+        return "手机品牌："+mtyb + " " +carrier +"\n手机型号："+mtype+"\nAndroid版本:"+ OSver +"\n手机号码："+ (numer.length()<1?"0":numer) +"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
     }
     /**
      * 获取手机MAC地址

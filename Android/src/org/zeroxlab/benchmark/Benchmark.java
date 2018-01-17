@@ -205,11 +205,11 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         //mCategory.get(VM).add(gc);
 
         // native
-        mCases.add(libMicro);
-        mCases.add(libUbench);
+       // mCases.add(libMicro);
+       // mCases.add(libUbench);
         mCases.add(libIO);
-        mCategory.get(IO).add(libMicro);
-        mCategory.get(IO).add(libUbench);
+        //mCategory.get(IO).add(libMicro);
+        //mCategory.get(IO).add(libUbench);
         mCategory.get(IO).add(libIO);
         initViews();
 

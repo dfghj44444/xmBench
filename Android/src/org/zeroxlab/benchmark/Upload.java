@@ -146,7 +146,8 @@ public class Upload extends Activity implements View.OnClickListener {
 
         TelephonyManager mTm = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
         m_imei = mTm.getDeviceId();
-
+        if(m_imei == null )
+            m_imei="00000";
         m_type = android.os.Build.MODEL; // 手机型号
         m_name= android.os.Build.BRAND;//手机品牌
     }

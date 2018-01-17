@@ -27,6 +27,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
+import org.zeroxlab.benchmark.R;
+
 /**
  * This class is an object representation of
  * a Cube containing the vertex information,
@@ -245,7 +247,7 @@ public class Cube {
      */
     public void loadGLTexture(GL10 gl, Context context) {
         //Get the texture from the Android resource directory
-        InputStream is = context.getResources().openRawResource(org.zeroxlab.benchmark.R.drawable.crate);
+        InputStream is = context.getResources().openRawResource(+ R.drawable.crate);
         Bitmap bitmap = null;
         try {
             //BitmapFactory is an Android graphics utility for images

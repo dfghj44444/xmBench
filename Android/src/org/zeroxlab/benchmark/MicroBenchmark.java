@@ -26,23 +26,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.os.Debug;
 import android.util.Log;
 import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-/* code adapted from Caliper Project */
 
 class MicroBenchmark extends Thread {
     final static int FAILED = -1;
@@ -103,25 +91,25 @@ class MicroBenchmark extends Thread {
         updateState(DONE);
     }
 
-    private String xml2json(String theXml){
-        String ret = "";
-        XmlMapper xmlMapper = new XmlMapper();
-        try {
-            JsonNode node = xmlMapper.readTree(theXml);
-
-            ObjectMapper jsonMapper = new ObjectMapper();
-            ret = jsonMapper.writeValueAsString(node);
-        }
-        catch (JsonProcessingException e)
-        {
-            String test  =e.toString();
-        }
-        catch (IOException e)
-        {
-            System.out.println(e.toString());
-        }
-        return  ret;
-    }
+//    private String xml2json(String theXml){
+//        String ret = "";
+//        XmlMapper xmlMapper = new XmlMapper();
+//        try {
+//            JsonNode node = xmlMapper.readTree(theXml);
+//
+//            ObjectMapper jsonMapper = new ObjectMapper();
+//            ret = jsonMapper.writeValueAsString(node);
+//        }
+//        catch (JsonProcessingException e)
+//        {
+//            String test  =e.toString();
+//        }
+//        catch (IOException e)
+//        {
+//            System.out.println(e.toString());
+//        }
+//        return  ret;
+//    }
 
     String postJSONObject(String myurl, String parameters) {
         HttpURLConnection conn = null;
@@ -153,6 +141,8 @@ class MicroBenchmark extends Thread {
                     return response.toString();
                 case 404:
                     return "无法链接服务器！";
+                default:
+                    Log.e(TAG, "responseCode"+responseCode);
             }
         } catch (IOException ex) {
             ex.printStackTrace();

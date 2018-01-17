@@ -51,7 +51,7 @@ public class CaseScimark2 extends Case {
     }
 
     public String getDescription() {
-        return "SciMark 2.0 is a Java benchmark for scientific and numerical computing. It measures several computational kernels and reports a composite score in approximate Mflops.";
+        return "SciMark 2.0集成了许多Java的数学运算能力测试。";
     }
 
     private void generateInfo() {
