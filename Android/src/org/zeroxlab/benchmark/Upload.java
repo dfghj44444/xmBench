@@ -44,7 +44,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
 
 
-public class Upload extends Activity implements View.OnClickListener {
+public class Upload extends Activity implements View.OnClickListener,android.content.DialogInterface.OnClickListener {
 
     public final static String TAG = "Upload";
     public final static String XML = "XML";
@@ -119,6 +119,7 @@ public class Upload extends Activity implements View.OnClickListener {
                         dismissDialog(0);
                         removeDialog(0);
                     } catch (Exception e) {
+                        Log.e("upload",e.toString());
                     }
                     if (state == MicroBenchmark.DONE) {
                         showDialog(3);
@@ -165,7 +166,10 @@ public class Upload extends Activity implements View.OnClickListener {
         }
         return text.substring(0, index + 1);
     }
-
+    public  void onClick(DialogInterface d,int id){
+        d.dismiss();
+        Upload.this.finish();
+    }
     public void onClick(View v) {
         Log.i(TAG, "onclick listener");
         if (v == mSend) {
@@ -262,13 +266,13 @@ public class Upload extends Activity implements View.OnClickListener {
                        });
                 return builder2.create();
             case (3):
-                String url = "http://" + getString(R.string.default_appspot) + ".appspot.com/";
+                String url = "http://" + getString(R.string.default_appspot) + "./ladder.php";
 
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
                 builder3.setMessage( "Please goto " + url + " for results" )
                         .setTitle("Result URL")
-                        .setPositiveButton("OK", null)
-                ;
+                        .setPositiveButton("OK",  this );
+
                 return builder3.create();
             case (4):
                 AlertDialog.Builder builder4 = new AlertDialog.Builder(this);

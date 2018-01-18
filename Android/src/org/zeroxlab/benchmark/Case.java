@@ -315,10 +315,10 @@ public abstract class Case {
         try {
             for (Scenario s: scenarios) {
                 JSONObject jsonObj = new JSONObject();
-                jsonObj.put("test_case_id", s.mName.replace(" ", ""));
-                jsonObj.put("measurement", getBenchmark(s));
+                jsonObj.put("case", s.mName.replace(" ", ""));
+                jsonObj.put("result", getBenchmark(s));
                 jsonObj.put("units", s.mType);
-                jsonObj.put("result", "pass");
+                jsonObj.put("state", "pass");
                 scenarioResult.put(jsonObj);
             }
         }
