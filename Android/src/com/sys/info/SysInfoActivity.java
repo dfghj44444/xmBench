@@ -10,8 +10,10 @@ import android.net.wifi.WifiManager;
 import android.opengl.GLES10;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
 import org.zeroxlab.benchmark.R;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
 import javax.microedition.khronos.egl.EGL10;
@@ -157,22 +160,47 @@ public class SysInfoActivity extends Activity {
      * 获得系统总内存
      */
     private String getTotalMemory() {
-        String str1 = "/proc/meminfo";// 系统内存信息文件
-        String str2;
-        String[] arrayOfString;
-        long initial_memory = 0;
-        try {
-            FileReader localFileReader = new FileReader(str1);
-            BufferedReader localBufferedReader = new BufferedReader(
-                    localFileReader, 8192);
-            str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
-
-            arrayOfString = str2.split("\\s+");
-            initial_memory = Integer.valueOf(arrayOfString[1]).intValue() * 1024;// 获得系统总内存，单位是KB，乘以1024转换为Byte
-            localBufferedReader.close();
-        } catch (IOException e) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            ActivityManager actManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+            actManager.getMemoryInfo(memInfo);
+            long totalMemory = memInfo.totalMem;
+            double mb = totalMemory / 1024.0;
+            double gb = totalMemory / 1048576.0;
+            double tb = totalMemory / 1073741824.0;
+            DecimalFormat twoDecimalForm = new DecimalFormat("#.##");
+            String lastValue = "";
+            if (tb > 1) {
+                lastValue = twoDecimalForm.format(tb).concat(" GB");
+            } else if (gb > 1) {
+                lastValue = twoDecimalForm.format(gb).concat(" MB");
+            } else if (mb > 1) {
+                lastValue = twoDecimalForm.format(mb).concat(" KB");
+            } else {
+                lastValue = twoDecimalForm.format(totalMemory).concat(" Byte");
+            }
+            return "总内存大小：" + lastValue;
         }
-        return "总内存大小：" + Formatter.formatFileSize(getBaseContext(), initial_memory);// Byte转换为KB或者MB，内存大小规格化
+        else {
+            String str1 = "/proc/meminfo";// 系统内存信息文件
+            String str2;
+            String[] arrayOfString;
+            long initial_memory = 0;
+            try {
+                FileReader localFileReader = new FileReader(str1);
+                BufferedReader localBufferedReader = new BufferedReader(
+                        localFileReader, 8192);
+                str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
+
+                arrayOfString = str2.split("\\s+");
+                initial_memory = Integer.valueOf(arrayOfString[1]).intValue() * 1024;// 获得系统总内存，单位是KB，乘以1024转换为Byte
+                localBufferedReader.close();
+            } catch (IOException e) {
+                Log.e("",e.toString());
+            }
+            return "总内存大小：" + Formatter.formatFileSize(getBaseContext(), initial_memory);// Byte转换为KB或者MB，内存大小规格化
+        }
+
     }
 
     /**
@@ -180,10 +208,24 @@ public class SysInfoActivity extends Activity {
      * @return
      */
     public String getHeightAndWidth(){
-        int width=getWindowManager().getDefaultDisplay().getWidth();
-        int heigth=getWindowManager().getDefaultDisplay().getHeight();
-        String str = "Width:" + width+"\nHeight:"+heigth+"";
-        return str;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            DisplayMetrics metric = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getRealMetrics(metric);
+            int width = metric.widthPixels; // 宽度（PX）
+            int height = metric.heightPixels; // 高度（PX）
+            float density = metric.density; // 密度（0.75 / 1.0 / 1.5）
+            int densityDpi = metric.densityDpi;
+            String str = "宽度:" + width + "\n高度:" + height + "\nDpi:" + densityDpi;
+            return str;
+        }
+        else
+        {
+            DisplayMetrics dm =getResources().getDisplayMetrics();
+            int w_screen = dm.widthPixels;
+            int h_screen = dm.heightPixels;
+            String str= "宽度 = " + w_screen + "高度 = " + h_screen + "密度 = " + dm.densityDpi;
+            return str;
+        }
     }
     /**
      * 获取IMEI号，IESI号，手机型号
@@ -194,13 +236,14 @@ public class SysInfoActivity extends Activity {
         if(imei == null)
             imei="00000";
         String imsi = mTm.getSubscriberId();
-        String mtype = android.os.Build.MODEL; // 手机型号
+        String mtype = android.os.Build.PRODUCT +" "+ android.os.Build.MODEL ; // 手机型号
         String mtyb= android.os.Build.BRAND;//手机品牌
-        String carrier= android.os.Build.MANUFACTURER;
-        String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
 
+        String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
+        if(numer == null)
+            numer = "0";
         String OSver = android.os.Build.VERSION.RELEASE;
-        return "手机品牌："+mtyb + " " +carrier +"\n手机型号："+mtype+"\nAndroid版本:"+ OSver +"\n手机号码："+ (numer.length()<1?"0":numer) +"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
+        return "手机品牌："+mtyb +"\n手机型号："+mtype+"\nAndroid版本:"+ OSver +"\n手机号码："+ numer +"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
     }
     /**
      * 获取手机MAC地址

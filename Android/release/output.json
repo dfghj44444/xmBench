@@ -1,1 +1,1 @@
-[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":19},"path":"Android-release.apk","properties":{"packageId":"org.zeroxlab.benchmark","split":"","minSdkVersion":"1"}}]
+[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":19},"path":"Android-release.apk","properties":{"packageId":"org.zeroxlab.benchmark","split":"","minSdkVersion":"10"}}]
