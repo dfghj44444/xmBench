@@ -48,3 +48,4 @@ Android/build/*
 build/
 Android/.gradle/
 Android/.idea/
+Android/release/
