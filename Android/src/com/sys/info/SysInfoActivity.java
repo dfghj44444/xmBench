@@ -33,6 +33,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -64,19 +65,13 @@ public class SysInfoActivity extends Activity {
         theText.append("\n" + getTotalMemory());
 
         theText.append("\n -----------------GPU------------------- \n" );
-        theText.append(getGpuInfo());
+        theText.append(GLinfoProvider.getSingleton().getGpuInfo());
         theText.append("\n -----------------其他------------------- \n" );
 
         theText.append(getHeightAndWidth());
         theText.append("\n基带:" + getBaseBandVersion());
         theText.append("\nKernel:" + getKernelVersion());
         theText.append("\n" + isRoot());
-    }
-
-    public String getGpuInfo() {
-
-            return GLinfoProvider.getSingleton().getGpuInfo();
-
     }
 
 
@@ -234,7 +229,7 @@ public class SysInfoActivity extends Activity {
         if(imei == null)
             imei="00000";
         String imsi = mTm.getSubscriberId();
-        String mtype = android.os.Build.PRODUCT +" "+ android.os.Build.MODEL ; // 手机型号
+        String mtype =  android.os.Build.MODEL ; // 手机型号
         String mtyb= android.os.Build.BRAND;//手机品牌
 
         String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
@@ -277,7 +272,19 @@ public class SysInfoActivity extends Activity {
             localBufferedReader.close();
         } catch (IOException e) {
         }
-        return "CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuInfo[1] +"MHz\nCPU核心数目："+ getNumCores();
+        String cpuMaxFreq = "";
+        try {
+            RandomAccessFile reader = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
+            cpuMaxFreq = reader.readLine();
+            cpuMaxFreq =  String.valueOf(Integer.parseInt(cpuMaxFreq)/1024);
+            reader.close();
+        }
+        catch (IOException e)
+        {
+            cpuMaxFreq = cpuInfo[1];
+            Log.e("info",e.toString());
+        }
+        return "CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuMaxFreq +"MHz\nCPU核心数目："+ getNumCores();
     }
 
     private int getNumCores() {
