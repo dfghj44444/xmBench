@@ -7,7 +7,11 @@ import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.opengl.EGL14;
 import android.opengl.GLES10;
+import android.opengl.GLES20;
+import android.opengl.GLES30;
+import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -16,6 +20,10 @@ import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.android.grafika.gles.EglCore;
+import com.android.grafika.gles.OffscreenSurface;
+
 import org.zeroxlab.benchmark.R;
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,10 +35,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -54,7 +64,7 @@ public class SysInfoActivity extends Activity {
         theText.append("\n" + getTotalMemory());
 
         theText.append("\n -----------------GPU------------------- \n" );
-        theText.append("GLES支持:GLES"+getGlVersion(getApplicationContext()));
+        theText.append(getGpuInfo());
         theText.append("\n -----------------其他------------------- \n" );
 
         theText.append(getHeightAndWidth());
@@ -65,21 +75,49 @@ public class SysInfoActivity extends Activity {
 
     public String getGpuInfo() {
 
-        String theStrLog= "Renderer:" + GLES10.glGetString(GL10.GL_RENDERER);
-        theStrLog += "Vendor:" + GLES10.glGetString(GL10.GL_VENDOR);
-         theStrLog +="GL_VERSION = " + GLES10.glGetString(GL10.GL_VERSION);
-        theStrLog += "GL_EXTENSIONS = " + GLES10.glGetString(GL10.GL_EXTENSIONS);
+            // We need a GL context to examine, which means we need an EGL surface.  Create a 1x1
+            // pbuffer.
+            EglCore eglCore = new EglCore(null, EglCore.FLAG_TRY_GLES3);
+            Boolean isES3 =( eglCore.getGlVersion()== 3);
+            OffscreenSurface surface = new OffscreenSurface(eglCore, 1, 1);
+            surface.makeCurrent();
 
-        return theStrLog;
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("\nvendor    : ");
+            sb.append(isES3?GLES30.glGetString(GLES30.GL_VENDOR):GLES20.glGetString(GLES20.GL_VENDOR));
+            sb.append("\nversion   : ");
+            sb.append(isES3?GLES30.glGetString(GLES30.GL_VERSION):GLES20.glGetString(GLES20.GL_VERSION));
+            sb.append("\nrenderer  : ");
+            sb.append(isES3?GLES30.glGetString(GLES30.GL_RENDERER):GLES20.glGetString(GLES20.GL_RENDERER));
+            sb.append("\nextensions:\n");
+            sb.append(formatExtensions( isES3?GLES30.glGetString(GLES30.GL_EXTENSIONS):GLES20.glGetString(GLES20.GL_EXTENSIONS)));
+
+            sb.append("\n------------- EGL Information --------------");
+            sb.append("\nvendor    : ");
+            sb.append(eglCore.queryString(EGL14.EGL_VENDOR));
+            sb.append("\nversion   : ");
+            sb.append(eglCore.queryString(EGL14.EGL_VERSION));
+            sb.append("\nclient API: ");
+            sb.append(eglCore.queryString(EGL14.EGL_CLIENT_APIS));
+            sb.append("\nextensions:\n");
+            sb.append(formatExtensions(eglCore.queryString(EGL14.EGL_EXTENSIONS)));
+
+            surface.release();
+            eglCore.release();
+            return sb.toString();
+
     }
-    public String getGlVersion(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
-            ConfigurationInfo configurationInfo = am.getDeviceConfigurationInfo();
-            return configurationInfo.getGlEsVersion();
-        } else {
-            return GLES10.glGetString(GLES10.GL_VERSION);
+    private String formatExtensions(String ext) {
+        String[] values = ext.split(" ");
+        Arrays.sort(values);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            sb.append("  ");
+            sb.append(values[i]);
+            sb.append("\n");
         }
+        return sb.toString();
     }
 
     /**
