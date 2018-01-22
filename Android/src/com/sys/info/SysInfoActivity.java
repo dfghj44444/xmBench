@@ -75,50 +75,10 @@ public class SysInfoActivity extends Activity {
 
     public String getGpuInfo() {
 
-            // We need a GL context to examine, which means we need an EGL surface.  Create a 1x1
-            // pbuffer.
-            EglCore eglCore = new EglCore(null, EglCore.FLAG_TRY_GLES3);
-            Boolean isES3 =( eglCore.getGlVersion()== 3);
-            OffscreenSurface surface = new OffscreenSurface(eglCore, 1, 1);
-            surface.makeCurrent();
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.append("\nvendor    : ");
-            sb.append(isES3?GLES30.glGetString(GLES30.GL_VENDOR):GLES20.glGetString(GLES20.GL_VENDOR));
-            sb.append("\nversion   : ");
-            sb.append(isES3?GLES30.glGetString(GLES30.GL_VERSION):GLES20.glGetString(GLES20.GL_VERSION));
-            sb.append("\nrenderer  : ");
-            sb.append(isES3?GLES30.glGetString(GLES30.GL_RENDERER):GLES20.glGetString(GLES20.GL_RENDERER));
-            sb.append("\nextensions:\n");
-            sb.append(formatExtensions( isES3?GLES30.glGetString(GLES30.GL_EXTENSIONS):GLES20.glGetString(GLES20.GL_EXTENSIONS)));
-
-            sb.append("\n------------- EGL Information --------------");
-            sb.append("\nvendor    : ");
-            sb.append(eglCore.queryString(EGL14.EGL_VENDOR));
-            sb.append("\nversion   : ");
-            sb.append(eglCore.queryString(EGL14.EGL_VERSION));
-            sb.append("\nclient API: ");
-            sb.append(eglCore.queryString(EGL14.EGL_CLIENT_APIS));
-            sb.append("\nextensions:\n");
-            sb.append(formatExtensions(eglCore.queryString(EGL14.EGL_EXTENSIONS)));
-
-            surface.release();
-            eglCore.release();
-            return sb.toString();
+            return GLinfoProvider.getSingleton().getGpuInfo();
 
     }
-    private String formatExtensions(String ext) {
-        String[] values = ext.split(" ");
-        Arrays.sort(values);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < values.length; i++) {
-            sb.append("  ");
-            sb.append(values[i]);
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
+
 
     /**
      * 获得基带版本
