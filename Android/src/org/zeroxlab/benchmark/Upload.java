@@ -43,6 +43,8 @@ import android.graphics.Bitmap;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
 
+import com.sys.info.GLinfoProvider;
+
 
 public class Upload extends Activity implements View.OnClickListener,android.content.DialogInterface.OnClickListener {
 
@@ -207,6 +209,7 @@ public class Upload extends Activity implements View.OnClickListener,android.con
             attr += "\"imei\":\"" + m_imei + "\",";
             attr += "\"name\":\"" + m_name + "\",";
             attr += "\"brand\":\"" + m_type + "\",";
+            attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfo() + "\",";
             StringBuffer _mJSON = new StringBuffer(mJSON);
 
             _mJSON.insert(1, attr);
