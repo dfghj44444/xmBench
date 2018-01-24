@@ -1,5 +1,6 @@
 #include <jni.h>  
 #include <GLES/gl.h>
+#include "org_crender_NDKGlRender.h"
 unsigned int vbo[2];  
 float positions[12] = {1,-1,0, 1,1,0, -1,-1,0, -1,1,0};  
 short indices  [4]  = {0,1,2,3};  

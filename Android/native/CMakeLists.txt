@@ -13,12 +13,10 @@ cmake_minimum_required(VERSION 3.4.1)
 
 add_library( NdkGLRenderer
             SHARED
-            libCRender/org_crender_NDKGlRender.c
+            libCRender/org_crender_NDKGlRender.cpp
 )
-set_target_properties(NdkGLRenderer PROPERTIES LINKER_LANGUAGE C)
-  add_definitions(
-        -__cplusplus
-    )
+set_target_properties(NdkGLRenderer PROPERTIES LINKER_LANGUAGE CXX)
+
 target_link_libraries( # Specifies the target library.
                        # 项目链接的.so库名称
                        NdkGLRenderer
