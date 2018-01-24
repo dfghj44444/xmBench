@@ -2,7 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        jcenter({url "http://jcenter.bintray.com/"})
+        jcenter({ url "http://jcenter.bintray.com/" })
         google()
     }
     dependencies {
@@ -13,7 +13,7 @@ apply plugin: 'com.android.application'
 // https://mvnrepository.com/artifact/org.json/json
 repositories {
     mavenCentral()
-    jcenter({url "http://jcenter.bintray.com/"})
+    jcenter({ url "http://jcenter.bintray.com/" })
 }
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
@@ -35,13 +35,39 @@ android {
 
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
-
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
     }
     defaultConfig {
         minSdkVersion 10
+        externalNativeBuild {
+            cmake {
+                //cFlags "-std=c++11 -fexceptions"
+                // 指定只用clang编译器
+                // Clang是一个C语言、Objective-C、C++语言的轻量级编译器。
+                arguments "-DANDROID_TOOLCHAIN=gcc"
+                // 生成.so库的目标平台
+                abiFilters "armeabi-v7a", "armeabi"
+            }
+        }
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a',
+                    'arm64-v8a'
+        }
     }
     productFlavors {
     }
+
+
+
+    externalNativeBuild {
+        cmake {
+            path 'native/CMakeLists.txt'
+        }
+    }
+    sourceSets { main { jni.srcDirs = ["native"] } }
 }
 
 repositories {

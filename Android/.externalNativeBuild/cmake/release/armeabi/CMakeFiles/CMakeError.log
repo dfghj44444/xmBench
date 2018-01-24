@@ -1,0 +1,46 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-gcc.exe 
+Build flags: -isystem;E:/NVPACK/android-sdk-windows/ndk-bundle/sysroot/usr/include/arm-linux-androideabi;-D__ANDROID_API__=14;-g;-DANDROID;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-march=armv5te;-mtune=xscale;-msoft-float;-mthumb;-Wa,--noexecstack;-Wformat;-Werror=format-security;
+Id flags: 
+
+The output was:
+1
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot open crtbegin_dynamic.o: No such file or directory
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot open crtend_android.o: No such file or directory
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -lc
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -ldl
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/config/arm/pr-support.c:378: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/config/arm/pr-support.c:384: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:289: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:319: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:346: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:376: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:420: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:505: error: undefined reference to 'abort'
+collect2.exe: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-g++.exe 
+Build flags: -isystem;E:/NVPACK/android-sdk-windows/ndk-bundle/sysroot/usr/include/arm-linux-androideabi;-D__ANDROID_API__=14;-g;-DANDROID;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-march=armv5te;-mtune=xscale;-msoft-float;-mthumb;-Wa,--noexecstack;-Wformat;-Werror=format-security;;
+Id flags: 
+
+The output was:
+1
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot open crtbegin_dynamic.o: No such file or directory
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot open crtend_android.o: No such file or directory
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -lstdc++
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -lm
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -lc
+E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x/../../../../arm-linux-androideabi/bin/ld.exe: error: cannot find -ldl
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/config/arm/pr-support.c:378: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/config/arm/pr-support.c:384: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:289: error: undefined reference to 'abort'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:319: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:346: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:376: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:420: error: undefined reference to 'memcpy'
+/usr/local/google/buildbot/src/android/gcc/toolchain/build/../gcc/gcc-4.9/libgcc/unwind-arm-common.inc:505: error: undefined reference to 'abort'
+collect2.exe: error: ld returned 1 exit status
+
+

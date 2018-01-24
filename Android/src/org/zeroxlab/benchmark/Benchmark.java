@@ -67,6 +67,7 @@ import java.util.LinkedList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import org.crender.NdkGlActivity;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -518,7 +519,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mTabHost.addTab(mTabHost.newTabSpec(IO).setIndicator(IO, getResources().getDrawable(R.drawable.ic_c)).setContent(mTCF));
         //mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));关闭SunSpider
         //getLayoutInflater().inflate(R.id.unit_data, mTabHost.getTabContentView(), true);
-        Intent intent = new Intent().setClass(this, SysInfoActivity.class);
+        Intent intent = new Intent().setClass(this, NdkGlActivity.class);
         mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(intent));
     }
 

@@ -151,8 +151,8 @@ public class Upload extends Activity implements View.OnClickListener,android.con
         m_imei = mTm.getDeviceId();
         if(m_imei == null )
             m_imei="00000";
-        m_type = android.os.Build.MODEL; // 手机型号
-        m_name= android.os.Build.BRAND;//手机品牌
+        m_type = android.os.Build.BRAND; // 手机型号
+        m_name= android.os.Build.MODEL;//手机品牌
     }
 
     private String trimTail(String text) {
@@ -204,7 +204,7 @@ public class Upload extends Activity implements View.OnClickListener,android.con
             attr = "";
             attr += "\"BenchVersionCode\":\"" + String.valueOf(versionCode) + "\",";
             attr += "\"BenchVersionName\":\"" + versionName + "\",";
-            attr += "\" apiKey\":\"" + apiKey + "\",";
+            attr += "\"apiKey\":\"" + apiKey + "\",";
             attr += "\"benchmark\":\"" + benchName + "\",";
             attr += "\"imei\":\"" + m_imei + "\",";
             attr += "\"name\":\"" + m_name + "\",";

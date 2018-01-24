@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "E:/xmperf/Android/native/CMakeLists.txt" ],
+	"cFileExtensions" : [ "c" ],
+	"cleanCommands" : 
+	[
+		"E:\\NVPACK\\android-sdk-windows\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\xmperf\\Android\\.externalNativeBuild\\cmake\\release\\armeabi --target clean"
+	],
+	"libraries" : 
+	{
+		"NdkGLRenderer-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "NdkGLRenderer",
+			"buildCommand" : "E:\\NVPACK\\android-sdk-windows\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\xmperf\\Android\\.externalNativeBuild\\cmake\\release\\armeabi --target NdkGLRenderer",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --sysroot=E:/NVPACK/android-sdk-windows/ndk-bundle/sysroot -DNdkGLRenderer_EXPORTS -IE:\\xmperf\\Android\\native\\native\\libCRender  -isystem E:/NVPACK/android-sdk-windows/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=14 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC   -__cplusplus    -c ",
+					"src" : "E:/xmperf/Android/native/libCRender/org_crender_NDKGlRender.c",
+					"workingDirectory" : "E:/xmperf/Android/.externalNativeBuild/cmake/release/armeabi"
+				}
+			],
+			"output" : "E:/xmperf/Android/build/intermediates/cmake/release/obj/armeabi/libNdkGLRenderer.so",
+			"toolchain" : "4168777495"
+		}
+	},
+	"toolchains" : 
+	{
+		"4168777495" : 
+		{
+			"cCompilerExecutable" : "E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-gcc.exe",
+			"cppCompilerExecutable" : "E:/NVPACK/android-sdk-windows/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-g++.exe"
+		}
+	}
+}
