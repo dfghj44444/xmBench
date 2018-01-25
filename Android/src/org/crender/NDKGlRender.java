@@ -1,6 +1,7 @@
 package org.crender;
 
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.Matrix;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,6 +19,7 @@ public class NDKGlRender implements  Renderer {
     public void onDrawFrame(GL10 arg0) {
         // TODO Auto-generated method stub
         onNdkDrawFrame();
+
     }
 
     @Override

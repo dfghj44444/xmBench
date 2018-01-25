@@ -1,6 +1,7 @@
 package org.crender;
 
 import android.app.Activity;
+import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,9 @@ public class NdkGlActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         GLSurfaceView surface = new GLSurfaceView(this);
+
+        surface.setEGLContextClientVersion(2);
+
         surface.setRenderer(new NDKGlRender());
         setContentView(surface);
     }

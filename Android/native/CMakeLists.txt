@@ -13,7 +13,8 @@ cmake_minimum_required(VERSION 3.4.1)
 
 add_library( NdkGLRenderer
             SHARED
-            libCRender/org_crender_NDKGlRender.cpp
+            libCRender/Matrix.cpp
+            libCRender/org_crender_NDKGlRender_gles2.cpp
 )
 set_target_properties(NdkGLRenderer PROPERTIES LINKER_LANGUAGE CXX)
 
