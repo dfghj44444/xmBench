@@ -7,18 +7,7 @@ namespace Matrix
     void multiplyMM(OUT float result[16], int resultOffset,
                     float lhs[16], int lhsOffset, float rhs[16], int rhsOffset);
 
-    void multiplyMV(float* resultVec,
-                    int resultVecOffset, float* lhsMat, int lhsMatOffset,
-                    float* rhsVec, int rhsVecOffset);
 
-    void transposeM(float* mTrans, int mTransOffset, float* m,
-                    int mOffset);
-
-    bool invertM(float* mInv, int mInvOffset, float* m,
-                 int mOffset) ;
-    void orthoM(float* m, int mOffset,
-                float left, float right, float bottom, float top,
-                float near, float far);
 
     /**
      * Defines a projection matrix in terms of six clip planes.
