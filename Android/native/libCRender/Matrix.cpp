@@ -7,21 +7,31 @@
  namespace Matrix
 {
      //矩阵乘法
-     void multiplyMM(OUT float result[16], int resultOffset,
+     void multiplyMM(OUT float* result, int resultOffset,
             float lhs[16], int lhsOffset, float rhs[16], int rhsOffset)
      {
-         for (uint i = 0; i < 4; i++)
-         {
-             for (uint j = 0; j < 4; j++)
-             {
-                 result[i * 4 + j]=0;
-                 for (uint k = 0; k < 4; k++)
-                 {
-                     result[i * 4 + j] += (lhs[i * 4 + k] * rhs[k * 4 + j]);
-                 }
-             }
-         }
+         result[resultOffset+0] =lhs[0]*rhs[0] +lhs[4]*rhs[1] +lhs[8]*rhs[2] +lhs[12]*rhs[3];
+         result[resultOffset+1] =lhs[1]*rhs[0] +lhs[5]*rhs[1] +lhs[9]*rhs[2] +lhs[13]*rhs[3];
+         result[resultOffset+2] =lhs[2]*rhs[0] +lhs[6]*rhs[1] +lhs[10]*rhs[2] +lhs[14]*rhs[3];
+         result[resultOffset+3] =lhs[3]*rhs[0] +lhs[7]*rhs[1] +lhs[11]*rhs[2] +lhs[15]*rhs[3];
+
+         result[resultOffset+4] =lhs[0]*rhs[4] +lhs[4]*rhs[5] +lhs[8]*rhs[6] +lhs[12]*rhs[7];
+         result[resultOffset+5] =lhs[1]*rhs[4] +lhs[5]*rhs[5] +lhs[9]*rhs[6] +lhs[13]*rhs[7];
+         result[resultOffset+6] =lhs[2]*rhs[4] +lhs[6]*rhs[5] +lhs[10]*rhs[6] +lhs[14]*rhs[7];
+         result[resultOffset+7] =lhs[3]*rhs[4] +lhs[7]*rhs[5] +lhs[11]*rhs[6] +lhs[15]*rhs[7];
+
+         result[resultOffset+8] =lhs[0]*rhs[8] +lhs[4]*rhs[9] +lhs[8]*rhs[10] +lhs[12]*rhs[11];
+         result[resultOffset+9] =lhs[1]*rhs[8] +lhs[5]*rhs[9] +lhs[9]*rhs[10] +lhs[13]*rhs[11];
+         result[resultOffset+10] =lhs[2]*rhs[8] +lhs[6]*rhs[9] +lhs[10]*rhs[10] +lhs[14]*rhs[11];
+         result[resultOffset+11] =lhs[3]*rhs[8] +lhs[7]*rhs[9] +lhs[11]*rhs[10] +lhs[15]*rhs[11];
+
+         result[resultOffset+12] =lhs[0]*rhs[12] +lhs[4]*rhs[13] +lhs[8]*rhs[14] +lhs[12]*rhs[15];
+         result[resultOffset+13] =lhs[1]*rhs[12] +lhs[5]*rhs[13] +lhs[9]*rhs[14] +lhs[13]*rhs[15];
+         result[resultOffset+14] =lhs[2]*rhs[12] +lhs[6]*rhs[13] +lhs[10]*rhs[14] +lhs[14]*rhs[15];
+         result[resultOffset+15] =lhs[3]*rhs[12] +lhs[7]*rhs[13] +lhs[11]*rhs[14] +lhs[15]*rhs[15];
      }
+     
+     
 
   
      void multiplyMV(float* resultVec,
@@ -459,12 +469,12 @@
      * @param y Y axis component
      * @param z Z axis component
      */
-     void rotateM(float m[], int mOffset, float a, float x, float y, float z)
+     void rotateM(float m[16], int mOffset, float a, float x, float y, float z)
     {
             float sTemp[32]={0.f};
             setRotateM(sTemp, 0, a, x, y, z);
             multiplyMM(sTemp, 16, m, mOffset, sTemp, 0);
-            memcpy( m+mOffset,sTemp+ 16, 16);
+            memcpy( m+mOffset,sTemp+ 16, 16* sizeof(float));
 
     }
 

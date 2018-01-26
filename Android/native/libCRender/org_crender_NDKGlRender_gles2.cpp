@@ -3,12 +3,11 @@
 
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
- #include <string.h>
- #include "org_crender_NDKGlRender.h"
+#include <string.h>
+#include "org_crender_NDKGlRender.h"
 #include "Matrix.h"
  #define  LOG_TAG    "libgljni"
  #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
@@ -22,7 +21,9 @@
  GLfloat gModelMatrix[16] = {0.0f};
  GLfloat gProjectionMatrix[16] = {0.0f};
 
- GLuint gMVPMatrixHandle = 0;
+GLuint gMMatrixHandle = 0;
+GLuint gVMatrixHandle = 0;
+GLuint gPMatrixHandle = 0;
  GLuint gPositionHandle = 0;
  GLuint gColorHandle = 0;
  GLuint gProgram = 0;
@@ -119,7 +120,7 @@
 
 static const char gVertexShader[] =
 {
-    "uniform mat4 u_MVPMatrix;      \n"
+    "uniform mat4 u_MMatrix;  uniform mat4 u_VMatrix;uniform mat4 u_PMatrix;    \n"
     "attribute vec4 a_Position;     \n"
     "attribute vec4 a_Color;        \n"
 
@@ -128,8 +129,7 @@ static const char gVertexShader[] =
     "void main()                    \n"
     "{                              \n"
     "   v_Color = a_Color;          \n"
-    "   gl_Position = u_MVPMatrix   \n"
-    "               * a_Position;   \n"
+    "   gl_Position =   u_PMatrix * u_VMatrix * u_MMatrix*a_Position ;   \n"
     "}                              \n"
 };
 
@@ -224,16 +224,22 @@ void drawCube(const GLfloat* positions, const GLfloat* colors)
     glEnableVertexAttribArray(gColorHandle);
     Matrix::multiplyMM(gMVPMatrix, 0, gViewMatrix, 0, gModelMatrix, 0);
     Matrix::multiplyMM(gMVPMatrix, 0, gProjectionMatrix, 0, gMVPMatrix, 0);
-
-    glUniformMatrix4fv(gMVPMatrixHandle, 1, GL_FALSE, gMVPMatrix);
+    //float sample[] ={1,0,0,0 ,0,1,0,0 ,0 ,0,1,0,1,1,1,1};
+    //memcpy(gMVPMatrix,gProjectionMatrix,16*sizeof(float));
+    glUniformMatrix4fv(gMMatrixHandle, 1, GL_FALSE, gModelMatrix);
+    glUniformMatrix4fv(gVMatrixHandle, 1, GL_FALSE, gViewMatrix);
+    glUniformMatrix4fv(gPMatrixHandle, 1, GL_FALSE, gProjectionMatrix);
     glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawArrays(GL_LINE_LOOP,0,36);
 }
 
 void renderFrame()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(gProgram);
-    gMVPMatrixHandle = glGetUniformLocation(gProgram, "u_MVPMatrix");
+    gMMatrixHandle = glGetUniformLocation(gProgram, "u_MMatrix");
+    gVMatrixHandle = glGetUniformLocation(gProgram, "u_VMatrix");
+    gPMatrixHandle = glGetUniformLocation(gProgram, "u_PMatrix");
     gPositionHandle = glGetAttribLocation(gProgram, "a_Position");
     gColorHandle = glGetAttribLocation(gProgram, "a_Color");
 
