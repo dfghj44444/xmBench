@@ -106,8 +106,8 @@ public class NativeCaseUbench  extends Case {
             _mTags.add("unit:" + name.substring(name.indexOf("&#040;")+6, name.indexOf("&#041;")));
 
             String [] __mTags =  (String[])(_mTags.toArray(new String[_mTags.size()]));
-            Scenario s = new Scenario(name, mType, __mTags, true);
-            s.mStringResults = results;
+            Scenario s = new Scenario(name, mType, __mTags);
+
             scenarios.add(s);
         }
 

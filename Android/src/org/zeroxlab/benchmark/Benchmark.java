@@ -59,11 +59,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.StringBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -519,8 +521,8 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mTabHost.addTab(mTabHost.newTabSpec(IO).setIndicator(IO, getResources().getDrawable(R.drawable.ic_c)).setContent(mTCF));
         //mTabHost.addTab(mTabHost.newTabSpec(MISC).setIndicator(MISC, getResources().getDrawable(R.drawable.ic_misc)).setContent(mTCF));关闭SunSpider
         //getLayoutInflater().inflate(R.id.unit_data, mTabHost.getTabContentView(), true);
-        //Intent intent = new Intent().setClass(this, SysInfoActivity.class);// 还愿这句回到原始的正常版本
-        Intent intent = new Intent().setClass(this, NdkGlActivity.class);//这是为了测试Native Renderer
+        Intent intent = new Intent().setClass(this, SysInfoActivity.class);// 还愿这句回到原始的正常版本
+        //Intent intent = new Intent().setClass(this, NdkGlActivity.class);//这是为了测试Native Renderer
         mTabHost.addTab(mTabHost.newTabSpec(INFO).setIndicator(INFO, getResources().getDrawable(R.drawable.ic_info)).setContent(intent));
     }
 
@@ -589,7 +591,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             new Thread() {
                 public void run() {
                     mJSONResult = getJSONResult();
-                    mXMLResult = getXMLResult();
+                    //mXMLResult = getXMLResult()删除于20180129byxingmin
                     Log.d(TAG, "XML: " + mXMLResult);
                     writeResult(mOutputXMLFile, mXMLResult);
                     Log.d(TAG, "JSON: " + mJSONResult);
@@ -606,78 +608,6 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                 startActivityForResult(intent, 0);
             }
         }
-    }
-
-    public String getXMLResult() {
-        if (mCases.size() == 0)
-            return "";
-
-        Date date = new Date();
-        //2010-05-28T17:40:25CST
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
-
-        String xml = "";
-        xml += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-        xml += "<result";
-        xml += " executedTimestamp=\"" + sdf.format(date) + "\"";
-        xml += " manufacturer=\"" + Build.MANUFACTURER.replace(' ', '_') + "\"";
-        xml += " model=\"" + Build.MODEL.replace(' ', '_') + ":" + Build.DISPLAY + "\"";
-        xml += " buildTimestamp=\"" + sdf.format(new Date(Build.TIME)) + "\"";
-        xml += " orientation=\"" + Integer.toString(orientation) + "\"";
-
-        try { // read kernel version
-            BufferedReader procVersion = new BufferedReader( new FileReader("/proc/version") );
-            StringBuffer sbuff = new StringBuffer();
-            String tmp;
-            while ((tmp = procVersion.readLine()) != null)
-                sbuff.append(tmp);
-            procVersion.close();
-            tmp = sbuff.toString().replace("[\n\r]+", " ").replace(" +", ".");
-            xml += " version=\"" + tmp + "\"";
-        } catch (IOException e){
-            Log.e(TAG, "opening /proc/version failed: " + e.toString());
-        }
-
-        try { // read and parse cpu info
-            BufferedReader procVersion = new BufferedReader(new FileReader("/proc/cpuinfo") );
-            StringBuffer sbuff = new StringBuffer();
-            String tmp;
-            while ((tmp = procVersion.readLine()) != null)
-                sbuff.append(tmp + "\n");
-            procVersion.close();
-
-            tmp = sbuff.toString();
-
-            sbuff = new StringBuffer();
-
-            Pattern p1 = Pattern.compile("(Processor\\s*:\\s*(.*)\\s*[\n\r]+)");
-            Matcher m1 = p1.matcher(tmp);
-            if (m1.find()) sbuff.append(m1.group(2));
-
-            Pattern p2 = Pattern.compile("(Hardware\\s*:\\s*(.*)\\s*[\n\r]+)");
-            Matcher m2 = p2.matcher(tmp);
-            if (m2.find()) sbuff.append(":"+m2.group(2));
-
-            Pattern p3 = Pattern.compile("(Revision\\s*:\\s*(.*)\\s*[\n\r]+)");
-            Matcher m3 = p3.matcher(tmp);
-            if (m3.find()) sbuff.append(":"+m3.group(2));
-
-            Log.e(TAG, sbuff.toString());
-            xml += " cpu=\"" + sbuff.toString() + "\"";
-        } catch (IOException e) {
-            Log.e(TAG, "opening /proc/version failed: " + e.toString());
-        }
-
-        xml += ">";
-
-        Case mycase;
-        for (int i = 0; i < mCases.size(); i++) {
-            mycase = mCases.get(i);
-            xml += mycase.getXMLBenchmark();
-        }
-
-        xml += "</result>";
-        return xml;
     }
 
     /*
@@ -708,15 +638,71 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                 }
             }
             testRunsObject.put("test_results", testResultsList);
-
+            int finalScore = CalcFinalScore(testResultsList);
             testRunsArray.put(testRunsObject);
             result.put("test_runs", testRunsArray);
-            result.put("format", "Dashboard Bundle Format 1.2");
+            result.put("score", finalScore);
         }
         catch (JSONException jsonE) {
             jsonE.printStackTrace();
         }
         return result.toString();
+    }
+
+   int  CalcFinalScore(JSONArray theArray)   {
+
+
+        ArrayList<Integer> mathScores = new ArrayList();
+        ArrayList<Integer> d2Scores   = new ArrayList();
+        ArrayList<Integer> d3Scores   = new ArrayList();
+        ArrayList<Integer> ioScores   = new ArrayList();
+       for(int i = 0; i< theArray.length();i++) {
+           try {
+               JSONObject theJson = theArray.getJSONObject(i);
+               if(theJson.get("unit").equals("io")){//io score calc
+                   if(theJson.has("score")){
+                       ioScores.add(theJson.optInt("score",50));
+                   }
+               }
+               else if(theJson.get("unit").equals("math")){//io score calc
+                   if(theJson.has("score")){
+                       mathScores.add(theJson.optInt("score",50));
+                   }
+               }
+               else if(theJson.get("unit").equals("3d-fps")){//io score calc
+                   if(theJson.has("score")){
+                       d3Scores.add(theJson.optInt("score",50));
+                   }
+               }
+               else if(theJson.get("unit").equals("2d-fps")){//io score calc
+                   if(theJson.has("score")){
+                       d2Scores.add(theJson.optInt("score",50));
+                   }
+               }
+           }catch (JSONException e) {
+               Log.d("",e.toString());
+           }
+       }
+
+       int mathAvg = calculateAverage(mathScores);
+       int d2Avg = calculateAverage(d2Scores);
+       int d3Avg = calculateAverage(d3Scores);
+       int ioAvg = calculateAverage(ioScores);
+       int ret = (int)(mathAvg*0.2+ioAvg*0.2+d2Avg*0.2+d3Avg*0.3);
+       return ret;
+   }
+
+    private Integer calculateAverage(List<Integer> marks) {
+        if (marks.size()==0)
+            return 1;
+        Integer sum = 0;
+        if(!marks.isEmpty()) {
+            for (Integer mark : marks) {
+                sum += mark;
+            }
+            return sum / marks.size();
+        }
+        return sum;
     }
 
     public String getResult() {

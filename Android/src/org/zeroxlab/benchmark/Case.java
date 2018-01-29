@@ -254,55 +254,7 @@ public abstract class Case {
         return (double)total/length;
     }
 
-    public String getXMLBenchmark() {
-        if (!couldFetchReport()) {
-            Log.e(TAG, "cannot fetch report: " + getTitle() + " : " + isFinish() + " : " + mInvolved);
-            return "";
-        }
 
-        String result = "";
-
-        ArrayList<Scenario> scenarios = getScenarios();
-        Log.e(TAG, "length of scenarios: " + scenarios.size());
-
-        for (Scenario s: scenarios) {
-            if (s == null){
-                Log.e(TAG, "Scenario is null");
-                continue;
-            }
-            String _result = "";
-            _result += "<scenario";
-            _result += " benchmark=\"" + s.mName.replace(" ", "") + "\"";
-            _result += " unit=\"" + s.mType + "\"";
-            _result += " tags=\"";
-            for (String tag: s.mTags) 
-                _result += tag + ",";
-            _result += "\"";
-            _result += ">";
-            if(!s.useStringResults) {
-                Double total = 0.0;
-                for (Double value: s.mResults) {
-                    _result += value + " ";
-                    total += value;
-                }
-                _result += "</scenario>";
-                if (total == 0){
-                    Log.e(TAG, "_result total is 0: ");
-                    Log.e(TAG, _result);
-                    continue;
-                }
-            } else {
-                if (s.mStringResults == null || s.mStringResults.length() == 0) {
-                    Log.e(TAG, "string results is empty: " + s.mStringResults);
-                    continue;
-                }
-                _result += s.mStringResults;
-                _result += "</scenario>";
-            }
-            result += _result;
-        }
-        return result;
-    }
 
     public JSONArray getJSONBenchmark() {
         JSONArray scenarioResult = new JSONArray();
@@ -319,6 +271,7 @@ public abstract class Case {
                 jsonObj.put("result", getBenchmark(s));
                 jsonObj.put("units", s.mType);
                 jsonObj.put("state", "pass");
+
                 scenarioResult.put(jsonObj);
             }
         }

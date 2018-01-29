@@ -22,38 +22,20 @@ import java.util.ArrayList;
 public class Scenario {
     String mName;
     String mType;
+    int mScore;//in 0-100
     String [] mTags;
     Date mTime;
-
     public ArrayList<Double> mResults;
-    public String mStringResults;
-    public boolean useStringResults;
-    String mLog;
 
+    String mLog;
     public Scenario(String name, String type, String [] tags) {
-        useStringResults = false;
 
         mName = name;
         mType = type;
         mTags = tags;
-
+        mScore= 50;
         mTime = new Date();
         mResults = new ArrayList<Double>();
-    }
-
-    public Scenario(String name, String type, String [] tags, boolean useString) {
-        if (!useString) {
-            useStringResults = false;
-            mResults = new ArrayList<Double>();
-        } else {
-            useStringResults = true;
-        }
-
-        mName = name;
-        mType = type;
-        mTags = tags;
-
-        mTime = new Date();
     }
 }
 

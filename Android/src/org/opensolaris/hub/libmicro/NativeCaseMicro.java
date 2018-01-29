@@ -106,8 +106,7 @@ public class NativeCaseMicro  extends Case {
 //                Log.i(TAG, _tmp[i].trim().replace(' ', ':'));
 //            }
             String [] __mTags =  (String[])(_mTags.toArray(new String[_mTags.size()]));
-            Scenario s = new Scenario(name, mType, __mTags, true);
-            s.mStringResults = results;
+            Scenario s = new Scenario(name, mType, __mTags);
             scenarios.add(s);
 
         }
