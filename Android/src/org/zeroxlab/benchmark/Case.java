@@ -271,7 +271,7 @@ public abstract class Case {
                 jsonObj.put("result", getBenchmark(s));
                 jsonObj.put("units", s.mType);
                 jsonObj.put("state", "pass");
-
+                jsonObj.put("score", s.mScore);
                 scenarioResult.put(jsonObj);
             }
         }

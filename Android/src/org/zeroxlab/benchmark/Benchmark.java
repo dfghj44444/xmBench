@@ -652,31 +652,31 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
    int  CalcFinalScore(JSONArray theArray)   {
 
 
-        ArrayList<Integer> mathScores = new ArrayList();
-        ArrayList<Integer> d2Scores   = new ArrayList();
-        ArrayList<Integer> d3Scores   = new ArrayList();
-        ArrayList<Integer> ioScores   = new ArrayList();
+        ArrayList<Double> mathScores = new ArrayList();
+        ArrayList<Double> d2Scores   = new ArrayList();
+        ArrayList<Double> d3Scores   = new ArrayList();
+        ArrayList<Double> ioScores   = new ArrayList();
        for(int i = 0; i< theArray.length();i++) {
            try {
                JSONObject theJson = theArray.getJSONObject(i);
-               if(theJson.get("unit").equals("io")){//io score calc
+               if(theJson.get("units").equals("io")){//io score calc
                    if(theJson.has("score")){
-                       ioScores.add(theJson.optInt("score",50));
+                       ioScores.add(theJson.optDouble("score",50.0));
                    }
                }
-               else if(theJson.get("unit").equals("math")){//io score calc
+               else if(theJson.get("units").equals("math")){//io score calc
                    if(theJson.has("score")){
-                       mathScores.add(theJson.optInt("score",50));
+                       mathScores.add(theJson.optDouble("score",50.0));
                    }
                }
-               else if(theJson.get("unit").equals("3d-fps")){//io score calc
+               else if(theJson.get("units").equals("3d-fps")){//io score calc
                    if(theJson.has("score")){
-                       d3Scores.add(theJson.optInt("score",50));
+                       d3Scores.add(theJson.optDouble("score",50.0));
                    }
                }
-               else if(theJson.get("unit").equals("2d-fps")){//io score calc
+               else if(theJson.get("units").equals("2d-fps")){//io score calc
                    if(theJson.has("score")){
-                       d2Scores.add(theJson.optInt("score",50));
+                       d2Scores.add(theJson.optDouble("score",50.0));
                    }
                }
            }catch (JSONException e) {
@@ -688,16 +688,16 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
        float d2Avg = calculateAverage(d2Scores);
        float d3Avg = calculateAverage(d3Scores);
        float ioAvg = calculateAverage(ioScores);
-       double ret = mathAvg*0.2+ioAvg*0.2+d2Avg*0.2+d3Avg*0.3;
+       double ret = mathAvg*0.2+ioAvg*0.3+d2Avg*0.2+d3Avg*0.3;
        return (int)ret;
    }
 
-    private float calculateAverage(List<Integer> marks) {
+    private float calculateAverage(List<Double> marks) {
         if (marks.size()==0)
             return 1;
         float sum = 0;
         if(!marks.isEmpty()) {
-            for (Integer mark : marks) {
+            for (Double mark : marks) {
                 sum += mark;
             }
             return sum / marks.size();
