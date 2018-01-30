@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Scenario {
     String mName;
     String mType;
-    int mScore;//in 0-100
+    float mScore;//in 0-100
     String [] mTags;
     Date mTime;
     public ArrayList<Double> mResults;

@@ -85,9 +85,27 @@ public class CaseIO  extends Case {
             double _tmp = mInfo[j].getDouble( TesterIO.RESULT);
                 s.mResults.add(_tmp);
         }
+        s.mScore = (float)CalcScore(s.mResults);
         scenarios.add(s);
 
         return scenarios;
+    }
+
+    double CalcScore(ArrayList<Double> theResult){
+        double score=0;
+        if (theResult.size()==0)
+            return 1;
+        double sum = 0;
+        if(!theResult.isEmpty()) {
+            for (Double mark : theResult) {
+                sum += mark;
+            }
+            score = theResult.size()/ sum ;
+        }
+        if(score>100)
+            score=100;
+
+        return score;
     }
 
     @Override
