@@ -3,13 +3,7 @@ package jnt.scimark2;
 import org.zeroxlab.benchmark.TesterScimark2;
 import android.os.Bundle;
 
-/**
-    SciMark2: A Java numerical benchmark measuring performance
-    of computational kernels for FFTs, Monte Carlo simulation,
-    sparse matrix computations, Jacobi SOR, and dense LU matrix
-    factorizations.  
-*/
-
+//this is for scimarks
 
 public class commandline
 {
@@ -55,7 +49,7 @@ public class commandline
         System.out.println("SciMark 2.0a");
         System.out.println();
 
-        System.out.println("Composite Score: " + res[0]);
+        System.out.println("综合评分: " + res[0]);
         info.putDouble(TesterScimark2.COMPOSITE, res[0]);
 
         System.out.print("FFT ("+FFT_size+"): ");

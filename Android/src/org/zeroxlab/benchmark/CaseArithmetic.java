@@ -119,7 +119,7 @@ public class CaseArithmetic extends Case {
             for (Double mark : theResult) {
                 sum += mark;
             }
-            score = theResult.size()/ sum * 100;
+            score =  sum/theResult.size() * 100;//more calcs per secs is good
         }
         if(score>100)
             score=100;

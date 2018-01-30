@@ -4,7 +4,6 @@ public class kernel
 {
     // each measurement returns approx Mflops
 
-
     public static double measureFFT(int N, double mintime, Random R) {
         // initialize FFT data as complex (N real/img pairs)
 

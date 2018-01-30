@@ -106,11 +106,11 @@ public class CaseScimark2 extends Case {
 
         ArrayList<String> subBenchmarks = new ArrayList<String>();
         subBenchmarks.add(TesterScimark2.COMPOSITE    );
-        subBenchmarks.add(TesterScimark2.FFT          );
-        subBenchmarks.add(TesterScimark2.SOR          );
-        subBenchmarks.add(TesterScimark2.MONTECARLO   );
-        subBenchmarks.add(TesterScimark2.SPARSEMATMULT);
-        subBenchmarks.add(TesterScimark2.LU           );
+//        subBenchmarks.add(TesterScimark2.FFT          );
+//        subBenchmarks.add(TesterScimark2.SOR          );
+//        subBenchmarks.add(TesterScimark2.MONTECARLO   );
+//        subBenchmarks.add(TesterScimark2.SPARSEMATMULT);
+//        subBenchmarks.add(TesterScimark2.LU           );
 
         for (int i = 0; i < subBenchmarks.size(); i++) {
             String benchName = subBenchmarks.get(i);

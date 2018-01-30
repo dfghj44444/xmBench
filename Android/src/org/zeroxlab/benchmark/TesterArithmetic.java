@@ -118,8 +118,8 @@ public class TesterArithmetic extends Tester {
         result += "\nMflops/s :" + bundle.getDouble(MFLOPS, 0.0);
         /* the time result is too small to calculate average. (0.0 ~ 0.1), drop it*/
         //result += "\nTime     :" + bundle.getDouble(TIME, 0.0);
-        result += "\nNorm Res :" + bundle.getDouble(RESIDN, 0.0);
-        result += "\nPrecision:" + bundle.getDouble(EPS, 0.0);
+        //result += "\nNorm Res :" + bundle.getDouble(RESIDN, 0.0);
+        //result += "\nPrecision:" + bundle.getDouble(EPS, 0.0);
 
         return result;
     }

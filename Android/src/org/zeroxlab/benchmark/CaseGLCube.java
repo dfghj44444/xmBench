@@ -104,7 +104,7 @@ public class CaseGLCube extends Case {
             for (Double mark : theResult) {
                 sum += mark;
             }
-            score = theResult.size()/ sum * 1.5;//以60秒为90分
+            score = sum/theResult.size() * 1.5;//以60秒为90分
         }
         if(score>100)
             score=100;
