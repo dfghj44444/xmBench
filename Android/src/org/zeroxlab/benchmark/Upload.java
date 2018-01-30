@@ -176,7 +176,7 @@ public class Upload extends Activity implements View.OnClickListener,android.con
         Log.i(TAG, "onclick listener");
         if (v == mSend) {
 
-            int _index;
+
             String attr;
 
             String benchName = getString(R.string.default_benchname);

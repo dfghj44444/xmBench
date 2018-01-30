@@ -684,18 +684,18 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
            }
        }
 
-       int mathAvg = calculateAverage(mathScores);
-       int d2Avg = calculateAverage(d2Scores);
-       int d3Avg = calculateAverage(d3Scores);
-       int ioAvg = calculateAverage(ioScores);
-       int ret = (int)(mathAvg*0.2+ioAvg*0.2+d2Avg*0.2+d3Avg*0.3);
-       return ret;
+       float mathAvg = calculateAverage(mathScores);
+       float d2Avg = calculateAverage(d2Scores);
+       float d3Avg = calculateAverage(d3Scores);
+       float ioAvg = calculateAverage(ioScores);
+       double ret = mathAvg*0.2+ioAvg*0.2+d2Avg*0.2+d3Avg*0.3;
+       return (int)ret;
    }
 
-    private Integer calculateAverage(List<Integer> marks) {
+    private float calculateAverage(List<Integer> marks) {
         if (marks.size()==0)
             return 1;
-        Integer sum = 0;
+        float sum = 0;
         if(!marks.isEmpty()) {
             for (Integer mark : marks) {
                 sum += mark;
