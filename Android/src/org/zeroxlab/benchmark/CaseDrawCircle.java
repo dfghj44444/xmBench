@@ -62,6 +62,24 @@ public class CaseDrawCircle extends Case {
         return result;
     }
 
+    double CalcScore(ArrayList<Double> theResult){
+        double score=0;
+        if (theResult.size()==0)
+            return 1;
+        double sum = 0;
+        if(!theResult.isEmpty()) {
+            for (Double mark : theResult) {
+                sum += mark;
+            }
+            score = theResult.size()/ sum * 1.5;//以60秒为90分
+        }
+        if(score>100)
+            score=100;
+        if(score<0)
+            score=0;
+        return score;
+    }
+
     /*
      *  Get Average Benchmark
      */
@@ -87,7 +105,7 @@ public class CaseDrawCircle extends Case {
             float fps = (float)mCaseRound / second;
             s.mResults.add(((Float)fps).doubleValue());
         }
-
+        s.mScore = (float)CalcScore(s.mResults);
         scenarios.add(s);
         return scenarios;
     }

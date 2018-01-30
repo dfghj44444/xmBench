@@ -103,9 +103,29 @@ public class CaseArithmetic extends Case {
         for (int i=0; i<mInfo.length; i++)
             s.mResults.add(mInfo[i].getDouble(TesterArithmetic.MFLOPS));
 
+        s.mScore = (float)CalcScore(s.mResults);
+
         scenarios.add(s);
 
         return scenarios;
+    }
+
+    double CalcScore(ArrayList<Double> theResult){
+        double score=0;
+        if (theResult.size()==0)
+            return 1;
+        double sum = 0;
+        if(!theResult.isEmpty()) {
+            for (Double mark : theResult) {
+                sum += mark;
+            }
+            score = theResult.size()/ sum * 100;
+        }
+        if(score>100)
+            score=100;
+        if(score<0)
+            score=0;
+        return score;
     }
 
     @Override
