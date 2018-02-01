@@ -100,7 +100,7 @@ public class CaseIO  extends Case {
             for (Double mark : theResult) {
                 sum += mark;
             }
-            score = theResult.size()/ sum * 50;//以20秒为分水岭
+            score = theResult.size()/ sum * 3;//以20秒为分水岭
         }
         if(score>100)
             score=100;

@@ -129,7 +129,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     boolean mCheckVM = false;
     boolean mCheckIO = false;
     //boolean mCheckMisc = false;
-    boolean mAutoUpload = false;
+    boolean mAutoUpload = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,9 +148,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         Case nehe08 = new CaseNeheLesson08();
         Case nehe16 = new CaseNeheLesson16();
         Case teapot = new CaseTeapot();
-        //Case gc     = new CaseGC();
-        Case libMicro = new NativeCaseMicro();
-        Case libUbench = new NativeCaseUbench();
+
         Case libIO = new CaseIO();
         //Case caseInfo = new CaseInfo();
         Case dc2 = new CaseDrawCircle2();

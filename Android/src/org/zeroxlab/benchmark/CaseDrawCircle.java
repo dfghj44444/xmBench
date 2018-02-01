@@ -17,6 +17,8 @@
 package org.zeroxlab.benchmark;
 import java.util.ArrayList;
 
+import static java.lang.Math.sqrt;
+
 public class CaseDrawCircle extends Case {
 
     public static int CircleRound = 300;
@@ -73,10 +75,15 @@ public class CaseDrawCircle extends Case {
             }
             score = sum / theResult.size() * 1.5;//以60秒为90分
         }
+        if(score>70)
+            score = 70+sqrt(score-70);
+        if(score>90)
+            score = 90+(score-90)/100;
         if(score>100)
             score=100;
         if(score<0)
             score=0;
+
         return score;
     }
 

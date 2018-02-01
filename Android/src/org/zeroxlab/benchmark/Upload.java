@@ -16,6 +16,7 @@
 
 package org.zeroxlab.benchmark;
 
+import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.content.SharedPreferences;
@@ -209,6 +210,7 @@ public class Upload extends Activity implements View.OnClickListener,android.con
             attr += "\"imei\":\"" + m_imei + "\",";
             attr += "\"name\":\"" + m_name + "\",";
             attr += "\"brand\":\"" + m_type + "\",";
+            attr += "\"version_name\":\"" + getVersionName() + "\",";
             attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfo() + "\",";
             StringBuffer _mJSON = new StringBuffer(mJSON);
 
@@ -382,4 +384,15 @@ public class Upload extends Activity implements View.OnClickListener,android.con
         return "org.zeroxlab.benchmark";
     }
 
+    public String getVersionName() {
+        Context context = getApplicationContext();
+        String versionName="Unknown";
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        }catch (PackageManager.NameNotFoundException e)
+        {
+            Log.e("SysInfo",e.toString());
+        }
+        return  versionName;
+    }
 }

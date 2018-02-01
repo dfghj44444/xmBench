@@ -20,6 +20,8 @@ import org.zeroxlab.kubench.Kubench;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.sqrt;
+
 public class CaseGLCube extends Case {
 
     public static int CubeRound = 1000;
@@ -104,12 +106,20 @@ public class CaseGLCube extends Case {
             for (Double mark : theResult) {
                 sum += mark;
             }
-            score = sum/theResult.size() * 1.5;//以60秒为90分
+            score = sum/theResult.size() ;//以60秒为90分
+        }
+        if(score>70) {
+            score = 70+sqrt(score-70);
+        }
+        if(score>90) {
+            score = 90+(score-90)/100;
         }
         if(score>100)
             score=100;
         if(score<0)
             score=0;
+
+
         return score;
     }
 
