@@ -1,33 +1,19 @@
 package com.sys.info;
 
 import android.app.Activity;
-
-import android.app.ActivityManager;
 import android.content.Context;
-import android.content.pm.ConfigurationInfo;
-import android.content.pm.PackageManager;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.telephony.TelephonyManager;
-import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.TextView;
+import org.json.JSONException;
 import org.zeroxlab.benchmark.R;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.lang.reflect.Method;
-import java.text.DecimalFormat;
 
 
 public class SysInfoActivity extends Activity {
@@ -46,14 +32,20 @@ public class SysInfoActivity extends Activity {
     private void InitViews() {
         TextView theText = (TextView) this.findViewById(R.id.txtCPU);
         theText.setText("-----------------手机-------------------\n");
-        theText.append( SysInfoProvider.getSingleton().getInfo((TelephonyManager)this.getSystemService(TELEPHONY_SERVICE)));
-        theText.append("\n" + getTotalMemory());
-        theText.append(SysInfoProvider.getSingleton().getVersionName(_ctx)+"\n");
+        try {
+            theText.append(SysInfoProvider.getSingleton().getInfo(_ctx,(TelephonyManager) this.getSystemService(TELEPHONY_SERVICE)));
+
+        }
+        catch(JSONException e)
+        {
+            Log.e( "InitViews ", e.toString());
+        }
+
+        theText.append("\n -----------------屏幕信息------------------- \n" );
+
         theText.append(getHeightAndWidth());
         theText.append("\n屏幕刷新率:"+SysInfoProvider.getSingleton().getRereshRate(_ctx));
-        theText.append("\n基带:" + getBaseBandVersion());
-        theText.append("\nKernel:" + getKernelVersion());
-        theText.append("\n" + SysInfoProvider.getSingleton().isRoot());
+
         theText.append("\n -----------------CPU------------------- \n" );
         theText.append( CpuInfoProvider.getSingleton().getCpuInfo());
         try {
@@ -69,110 +61,7 @@ public class SysInfoActivity extends Activity {
     }
 
 
-    /**
-     * 获得基带版本
-     *
-     * @return String
-     */
-    public static String getBaseBandVersion() {
-        String version = "";
-        try {
-            Class clazz = Class.forName("android.os.SystemProperties");
-            Object object = clazz.newInstance();
-            Method method = clazz.getMethod("get", new Class[]{String.class, String.class});
-            Object result = method.invoke(object, new Object[]{"gsm.version.baseband", "no message"});
-            version = (String) result;
-        } catch (Exception e) {
-        }
-        return version;
-    }
 
-    /**
-     * 获得内核版本
-     *
-     * @return String
-     */
-    public String getKernelVersion() {
-        Process process = null;
-        String kernelVersion = "";
-        try {
-            process = Runtime.getRuntime().exec("cat /proc/version");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        InputStream inputStream = process.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 8 * 1024);
-        String result = "";
-        String info;
-        try {
-            while ((info = bufferedReader.readLine()) != null) {
-                result += info;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (result != "") {
-                String keyword = "version ";
-                int index = result.indexOf(keyword);
-                info = result.substring(index + keyword.length());
-                index = info.indexOf(" ");
-                kernelVersion = info.substring(0, index);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-        return kernelVersion;
-
-    }
-
-
-    /**
-     * 获得系统总内存
-     */
-    private  String getTotalMemory() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            ActivityManager actManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-            ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-            actManager.getMemoryInfo(memInfo);
-            long totalMemory = memInfo.totalMem;
-            double mb = totalMemory / 1024.0;
-            double gb = totalMemory / 1048576.0;
-            double tb = totalMemory / 1073741824.0;
-            DecimalFormat twoDecimalForm = new DecimalFormat("#.##");
-            String lastValue = "";
-            if (tb > 1) {
-                lastValue = twoDecimalForm.format(tb).concat(" GB");
-            } else if (gb > 1) {
-                lastValue = twoDecimalForm.format(gb).concat(" MB");
-            } else if (mb > 1) {
-                lastValue = twoDecimalForm.format(mb).concat(" KB");
-            } else {
-                lastValue = twoDecimalForm.format(totalMemory).concat(" Byte");
-            }
-            return "总内存大小：" + lastValue;
-        }
-        else {
-            String str1 = "/proc/meminfo";// 系统内存信息文件
-            String str2;
-            String[] arrayOfString;
-            long initial_memory = 0;
-            try {
-                FileReader localFileReader = new FileReader(str1);
-                BufferedReader localBufferedReader = new BufferedReader(
-                        localFileReader, 8192);
-                str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
-
-                arrayOfString = str2.split("\\s+");
-                initial_memory = Integer.valueOf(arrayOfString[1]).intValue() * 1024;// 获得系统总内存，单位是KB，乘以1024转换为Byte
-                localBufferedReader.close();
-            } catch (IOException e) {
-                Log.e("",e.toString());
-            }
-            return "总内存大小：" + Formatter.formatFileSize(getBaseContext(), initial_memory);// Byte转换为KB或者MB，内存大小规格化
-        }
-    }
 
     /**
      * 获得手机屏幕宽高
@@ -188,7 +77,6 @@ public class SysInfoActivity extends Activity {
             int densityDpi = metric.densityDpi;
             float widthInch = metric.widthPixels/densityDpi;
             float heightInch =  metric.heightPixels/densityDpi;
-
 
             String str = "宽度(px):" + width + "\n高度(px):" + height + "\nDpi:" + densityDpi+"\n物理宽度(英寸):"+widthInch+"\n物理高度(英寸):"+heightInch;
             return str;

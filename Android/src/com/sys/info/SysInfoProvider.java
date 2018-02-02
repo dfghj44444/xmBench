@@ -1,11 +1,13 @@
 package com.sys.info;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -14,7 +16,14 @@ import android.view.WindowManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 
 /**
  * Created by wangxingmin on 2018/2/2.
@@ -87,7 +96,7 @@ public class SysInfoProvider {
     /**
      * 获取IMEI号，IESI号，手机型号
      */
-    public String getInfo(TelephonyManager mTm) throws JSONException{
+    public String getInfo(Context ctx,TelephonyManager mTm) throws JSONException{
         if(cachePhoneInfo==null) {
             String imei = mTm.getDeviceId();
             if (imei == null)
@@ -108,7 +117,114 @@ public class SysInfoProvider {
             cachePhoneInfo.put("安卓版本",OSver);
             cachePhoneInfo.put("IMEI",imei);
             cachePhoneInfo.put("IMSI",imsi);
+            cachePhoneInfo.put("基带版本",getBaseBandVersion());
+            cachePhoneInfo.put("Kernel版本",getKernelVersion());
+            cachePhoneInfo.put("APK版本",getVersionName(ctx));
+            cachePhoneInfo.put("内存",getTotalMemory(ctx));
+            cachePhoneInfo.put("Root",isRoot());
         }
         return cachePhoneInfo.toString(2);
+    }
+    /**
+     * 获得内核版本
+     *
+     * @return String
+     */
+    public String getKernelVersion() {
+        Process process = null;
+        String kernelVersion = "";
+        try {
+            process = Runtime.getRuntime().exec("cat /proc/version");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InputStream inputStream = process.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 8 * 1024);
+        String result = "";
+        String info;
+        try {
+            while ((info = bufferedReader.readLine()) != null) {
+                result += info;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (result != "") {
+                String keyword = "version ";
+                int index = result.indexOf(keyword);
+                info = result.substring(index + keyword.length());
+                index = info.indexOf(" ");
+                kernelVersion = info.substring(0, index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return kernelVersion;
+    }
+    /**
+     * 获得基带版本
+     *
+     * @return String
+     */
+    public static String getBaseBandVersion() {
+        String version = "";
+        try {
+            Class clazz = Class.forName("android.os.SystemProperties");
+            Object object = clazz.newInstance();
+            Method method = clazz.getMethod("get", new Class[]{String.class, String.class});
+            Object result = method.invoke(object, new Object[]{"gsm.version.baseband", "no message"});
+            version = (String) result;
+        } catch (Exception e) {
+        }
+        return version;
+    }
+
+
+    /**
+     * 获得系统总内存
+     */
+    private  String getTotalMemory(Context ctx) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            ActivityManager actManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+            actManager.getMemoryInfo(memInfo);
+            long totalMemory = memInfo.totalMem;
+            double mb = totalMemory / 1024.0;
+            double gb = totalMemory / 1048576.0;
+            double tb = totalMemory / 1073741824.0;
+            DecimalFormat twoDecimalForm = new DecimalFormat("#.##");
+            String lastValue = "";
+            if (tb > 1) {
+                lastValue = twoDecimalForm.format(tb).concat(" GB");
+            } else if (gb > 1) {
+                lastValue = twoDecimalForm.format(gb).concat(" MB");
+            } else if (mb > 1) {
+                lastValue = twoDecimalForm.format(mb).concat(" KB");
+            } else {
+                lastValue = twoDecimalForm.format(totalMemory).concat(" Byte");
+            }
+            return  lastValue;
+        }
+        else {
+            String str1 = "/proc/meminfo";// 系统内存信息文件
+            String str2;
+            String[] arrayOfString;
+            long initial_memory = 0;
+            try {
+                FileReader localFileReader = new FileReader(str1);
+                BufferedReader localBufferedReader = new BufferedReader(
+                        localFileReader, 8192);
+                str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
+
+                arrayOfString = str2.split("\\s+");
+                initial_memory = Integer.valueOf(arrayOfString[1]).intValue() * 1024;// 获得系统总内存，单位是KB，乘以1024转换为Byte
+                localBufferedReader.close();
+            } catch (IOException e) {
+                Log.e("",e.toString());
+            }
+            return  Formatter.formatFileSize(ctx, initial_memory);// Byte转换为KB或者MB，内存大小规格化
+        }
     }
 }
