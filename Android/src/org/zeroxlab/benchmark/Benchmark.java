@@ -123,7 +123,6 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
     private final String ladderUrl = "http://192.168.21.58/ladder.php";
 
-    boolean mAutoRun = true;
     boolean mCheckMath = false;
     boolean mCheck2D = false;
     boolean mCheck3D = false;
@@ -131,6 +130,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     boolean mCheckIO = false;
     //boolean mCheckMisc = false;
     boolean mAutoUpload = true;
+    boolean mAutoRun = false;
 
 
     @Override

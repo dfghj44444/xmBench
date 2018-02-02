@@ -49,72 +49,6 @@ public class GLinfoProvider {
         return cacheExtString;
     }
 
-    public String getCpuInfo()
-    {
-        String str1 = "/proc/cpuinfo";
-        String str2 = "";
-        String[] cpuInfo = {"", ""};  //1-cpu型号  //2-cpu频率
-        String[] arrayOfString;
-        try {
-            FileReader fr = new FileReader(str1);
-            BufferedReader localBufferedReader = new BufferedReader(fr, 8192);
-            str2 = localBufferedReader.readLine();
-            arrayOfString = str2.split("\\s+");
-            for (int i = 2; i < arrayOfString.length; i++) {
-                cpuInfo[0] = cpuInfo[0] + arrayOfString[i] + " ";
-            }
-            str2 = localBufferedReader.readLine();
-            arrayOfString = str2.split("\\s+");
-            cpuInfo[1] += arrayOfString[2];
-
-            localBufferedReader.close();
-        } catch (IOException e) {
-        }
-        String cpuMaxFreq = "";
-        try {
-            RandomAccessFile reader = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
-            cpuMaxFreq = reader.readLine();
-            cpuMaxFreq =  String.valueOf(Integer.parseInt(cpuMaxFreq)/1024);
-            reader.close();
-        }
-        catch (IOException e)
-        {
-            cpuMaxFreq = cpuInfo[1];
-            Log.e("info",e.toString());
-        }
-        return "CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuMaxFreq +"MHz\nCPU核心数目："+ getNumCores();
-    }
-
-    public String getCPUInfoJSON () throws IOException {
-
-        String output = "{";
-
-        BufferedReader br = new BufferedReader (new FileReader ("/proc/cpuinfo"));
-
-        String str;
-
-        while ((str = br.readLine ()) != null) {
-
-            String[] data = str.split (":");
-
-            if (data.length > 1) {
-
-                String key = data[0].trim ().replace (" ", "_");
-                if (key.equals ("model_name"))
-                    key = "cpu_model";
-
-                String value = data[1].trim ();
-                if (key.equals ("cpu_model"))
-                    value = value.replaceAll ("\\s+", " ");
-                output+="\"" + key+ "\":\""+ value+"\",";
-            }
-        }
-
-        br.close ();
-        output = output.substring(0, output.length()-1) + "}";
-        return output;
-    }
-
     //for Graphic Card
     public String getGpuInfo() {
         if(cacheINfoString.length()<1) {
@@ -154,33 +88,7 @@ public class GLinfoProvider {
         return cacheINfoString;
     }
 
-    private int getNumCores() {
-        //Private Class to display only CPU devices in the directory listing
-        class CpuFilter implements FileFilter {
-            @Override
-            public boolean accept(File pathname) {
-                //Check if filename is "cpu", followed by a single digit number
-                if(Pattern.matches("cpu[0-9]+", pathname.getName())) {
-                    return true;
-                }
-                return false;
-            }
-        }
 
-        try {
-            //Get directory containing CPU info
-            File dir = new File("/sys/devices/system/cpu/");
-            //Filter to only list the devices we care about
-            File[] files = dir.listFiles(new CpuFilter());
-            Log.d("warning", "CPU Count: "+files.length);
-            //Return the number of cores (virtual CPU devices)
-            return files.length;
-        } catch(Exception e) {
-            Log.d("warning", "CPU Count: Failed.");
-            e.printStackTrace();
-            return 1;
-        }
-    }
 
     private String formatExtensions(String ext) {
         String[] values = ext.split(" ");

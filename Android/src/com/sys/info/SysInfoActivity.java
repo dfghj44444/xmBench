@@ -55,10 +55,10 @@ public class SysInfoActivity extends Activity {
         theText.setText("-----------------手机-------------------\n");
         theText.append( getInfo());
         theText.append("\n -----------------CPU------------------- \n" );
-        theText.append( GLinfoProvider.getSingleton().getCpuInfo());
+        theText.append( CpuInfoProvider.getSingleton().getCpuInfo());
         theText.append("\n" + getTotalMemory());
         try {
-            theText.append("\n" + GLinfoProvider.getSingleton().getCPUInfoJSON());
+            theText.append("\n" + CpuInfoProvider.getSingleton().getCPUInfoJSON());
         }catch (IOException e)
         {
             Log.d("",e.toString());
