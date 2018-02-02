@@ -1,5 +1,6 @@
 package com.sys.info;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -32,6 +33,7 @@ import java.text.DecimalFormat;
 public class SysInfoProvider {
     private volatile static SysInfoProvider instance;
     private JSONObject cachePhoneInfo=null;
+    private JSONObject cacheScreenInfo=null;
 //    private String cacheCpuInfoJson ="";
 //    private JSONObject cacheCpuInfoJsonObj =null;
 //    private int cacheCoreNums = 0;
@@ -226,5 +228,42 @@ public class SysInfoProvider {
             }
             return  Formatter.formatFileSize(ctx, initial_memory);// Byte转换为KB或者MB，内存大小规格化
         }
+    }
+
+    /**
+     * 获得手机屏幕宽高
+     * @return
+     */
+    public String getScreenInfo(Activity act) throws  JSONException{
+        if(cacheScreenInfo==null) {
+            cacheScreenInfo=new JSONObject();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                DisplayMetrics metric = new DisplayMetrics();
+                act.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
+                int width = metric.widthPixels; // 宽度（PX）
+                int height = metric.heightPixels; // 高度（PX）
+                float density = metric.density; // 密度（0.75 / 1.0 / 1.5）
+                int densityDpi = metric.densityDpi;
+                float widthInch = metric.widthPixels / densityDpi;
+                float heightInch = metric.heightPixels / densityDpi;
+
+                cacheScreenInfo.put("宽度(px):", width);
+                cacheScreenInfo.put("高度(px):", height);
+                cacheScreenInfo.put("Dpi:", densityDpi);
+                cacheScreenInfo.put("物理宽度(英寸):", widthInch);
+                cacheScreenInfo.put("物理高度(英寸):", heightInch);
+            } else {
+                DisplayMetrics dm = act.getResources().getDisplayMetrics();
+                int w_screen = dm.widthPixels;
+                int h_screen = dm.heightPixels;
+
+                cacheScreenInfo.put("宽度(px):", w_screen);
+                cacheScreenInfo.put("高度(px):", h_screen);
+                cacheScreenInfo.put("Dpi:", dm.densityDpi);
+            }
+            cacheScreenInfo.put("屏幕刷新率:",getRereshRate(act.getApplicationContext()));
+        }
+
+        return cacheScreenInfo.toString(2);
     }
 }
