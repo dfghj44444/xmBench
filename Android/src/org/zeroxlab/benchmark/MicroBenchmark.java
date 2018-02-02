@@ -46,13 +46,13 @@ class MicroBenchmark extends Thread {
     //String xml;
     String json;
     String postUrl;
-    String apiKey;
+
     String benchmarkName;
 
-    MicroBenchmark(String _json, String _postUrl, String _apiKey, String _benchmarkName, Handler h) {
+    MicroBenchmark(String _json, String _postUrl,  String _benchmarkName, Handler h) {
         json = _json;
         postUrl = _postUrl;
-        apiKey = _apiKey;
+
         benchmarkName = _benchmarkName;
         mHandler = h;
     }
