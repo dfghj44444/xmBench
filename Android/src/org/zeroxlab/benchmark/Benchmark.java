@@ -19,6 +19,7 @@
 
 package org.zeroxlab.benchmark;
 
+import android.os.PowerManager;
 import android.util.Log;
 
 
@@ -258,9 +259,22 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
             initAuto();
         }
         */
+
+        CheckPowerManage();//如果大于7.0，自动开启SustainedPerformance mode
         if (mAutoRun) {
             onClick(mRun);
         }
+    }
+
+    void CheckPowerManage()
+    {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+             PowerManager pm = (PowerManager) getSystemService(getApplicationContext().POWER_SERVICE);
+             if (pm.isSustainedPerformanceModeSupported()) {
+                 Log.i("BenchMark", "Sustained Performance Mode is supported\n");
+                 getWindow().setSustainedPerformanceMode(true);
+             }
+         }
     }
 
     @Override
