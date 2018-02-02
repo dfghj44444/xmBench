@@ -3,6 +3,9 @@ package com.sys.info;
 import android.os.Build;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -22,7 +25,9 @@ public class CpuInfoProvider {
     private volatile static CpuInfoProvider instance;
     private String cacheCpuInfo="";
     private String cacheCpuInfoJson ="";
+    private JSONObject cacheCpuInfoJsonObj =null;
     private int cacheCoreNums = 0;
+
     String[] mArmArchitecture=new String[2];
     public static CpuInfoProvider getSingleton() {
         if (instance == null) {                         //Single Checked
@@ -67,7 +72,7 @@ public class CpuInfoProvider {
                 cpuMaxFreq = cpuInfo[1];
                 Log.e("info", e.toString());
             }
-            cacheCpuInfo="CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuMaxFreq +"MHz\nCPU核心数目："+ getNumCores() +"支持的指令集:\n"+GetArchitecture();
+            cacheCpuInfo="CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuMaxFreq +"MHz\nCPU核心数目："+ getNumCores() +"\n支持的指令集:\n"+GetArchitecture();
         }
 
         return cacheCpuInfo;
@@ -99,6 +104,17 @@ public class CpuInfoProvider {
             br.close();
             output = output.substring(0, output.length() - 1) + "}";
             cacheCpuInfoJson = output;
+            try {
+                cacheCpuInfoJsonObj = new JSONObject(cacheCpuInfoJson);
+
+                if(cacheCpuInfoJsonObj.has("processor"))
+                    cacheCpuInfoJsonObj.remove("processor");
+                cacheCpuInfoJsonObj.put("Cores",getNumCores());
+                cacheCpuInfoJson = cacheCpuInfoJsonObj.toString();
+            }
+            catch (JSONException e){
+                Log.e("getCPUInfoJSON: ",e.toString() );
+            }
         }
         return cacheCpuInfoJson;
     }

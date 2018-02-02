@@ -8,11 +8,6 @@ import android.content.pm.ConfigurationInfo;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.opengl.EGL14;
-import android.opengl.GLES10;
-import android.opengl.GLES20;
-import android.opengl.GLES30;
-import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -20,16 +15,12 @@ import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.android.grafika.gles.EglCore;
-import com.android.grafika.gles.OffscreenSurface;
-
 import org.zeroxlab.benchmark.R;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,21 +33,29 @@ import java.text.DecimalFormat;
 public class SysInfoActivity extends Activity {
     //ProgressBar progressBar = (ProgressBar) getActivity().findViewById(R.id.ctrlActivityIndicator)
     //above is a sample
+
+    protected Context _ctx=null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sys_info);
-
+        _ctx = getApplicationContext();
         InitViews();
     }
 
     private void InitViews() {
         TextView theText = (TextView) this.findViewById(R.id.txtCPU);
         theText.setText("-----------------手机-------------------\n");
-        theText.append( getInfo());
+        theText.append( SysInfoProvider.getSingleton().getInfo((TelephonyManager)this.getSystemService(TELEPHONY_SERVICE)));
+        theText.append("\n" + getTotalMemory());
+        theText.append(SysInfoProvider.getSingleton().getVersionName(_ctx)+"\n");
+        theText.append(getHeightAndWidth());
+        theText.append("\n屏幕刷新率:"+SysInfoProvider.getSingleton().getRereshRate(_ctx));
+        theText.append("\n基带:" + getBaseBandVersion());
+        theText.append("\nKernel:" + getKernelVersion());
+        theText.append("\n" + SysInfoProvider.getSingleton().isRoot());
         theText.append("\n -----------------CPU------------------- \n" );
         theText.append( CpuInfoProvider.getSingleton().getCpuInfo());
-        theText.append("\n" + getTotalMemory());
         try {
             theText.append("\n" + CpuInfoProvider.getSingleton().getCPUInfoJSON());
         }catch (IOException e)
@@ -66,11 +65,7 @@ public class SysInfoActivity extends Activity {
         theText.append("\n -----------------GPU------------------- \n" );
         theText.append(GLinfoProvider.getSingleton().getGpuInfo());
         theText.append("\n -----------------其他------------------- \n" );
-        theText.append(getVersionName()+"\n");
-        theText.append(getHeightAndWidth());
-        theText.append("\n基带:" + getBaseBandVersion());
-        theText.append("\nKernel:" + getKernelVersion());
-        theText.append("\n" + isRoot());
+
     }
 
 
@@ -79,7 +74,7 @@ public class SysInfoActivity extends Activity {
      *
      * @return String
      */
-    public String getBaseBandVersion() {
+    public static String getBaseBandVersion() {
         String version = "";
         try {
             Class clazz = Class.forName("android.os.SystemProperties");
@@ -132,26 +127,11 @@ public class SysInfoActivity extends Activity {
 
     }
 
-    /**
-     * 获取手机是否root信息
-     * @return
-     */
-    private String isRoot(){
-        String bool = "Root:false";
-        try{
-            if ((!new File("/system/bin/su").exists()) && (!new File("/system/xbin/su").exists())){
-                bool = "Root:false";
-            } else {
-                bool = "Root:true";
-            }
-        } catch (Exception e) {
-        }
-        return bool;
-    }
+
     /**
      * 获得系统总内存
      */
-    private String getTotalMemory() {
+    private  String getTotalMemory() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             ActivityManager actManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
             ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
@@ -192,7 +172,6 @@ public class SysInfoActivity extends Activity {
             }
             return "总内存大小：" + Formatter.formatFileSize(getBaseContext(), initial_memory);// Byte转换为KB或者MB，内存大小规格化
         }
-
     }
 
     /**
@@ -207,7 +186,11 @@ public class SysInfoActivity extends Activity {
             int height = metric.heightPixels; // 高度（PX）
             float density = metric.density; // 密度（0.75 / 1.0 / 1.5）
             int densityDpi = metric.densityDpi;
-            String str = "宽度:" + width + "\n高度:" + height + "\nDpi:" + densityDpi;
+            float widthInch = metric.widthPixels/densityDpi;
+            float heightInch =  metric.heightPixels/densityDpi;
+
+
+            String str = "宽度(px):" + width + "\n高度(px):" + height + "\nDpi:" + densityDpi+"\n物理宽度(英寸):"+widthInch+"\n物理高度(英寸):"+heightInch;
             return str;
         }
         else
@@ -218,46 +201,5 @@ public class SysInfoActivity extends Activity {
             String str= "宽度 = " + w_screen + "高度 = " + h_screen + "密度 = " + dm.densityDpi;
             return str;
         }
-    }
-    /**
-     * 获取IMEI号，IESI号，手机型号
-     */
-    private String getInfo() {
-        TelephonyManager mTm = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
-        String imei = mTm.getDeviceId();
-        if(imei == null)
-            imei="00000";
-        String imsi = mTm.getSubscriberId();
-        String mtype =  android.os.Build.MODEL ; // 手机型号
-        String mtyb= android.os.Build.BRAND;//手机品牌
-        String product = android.os.Build.PRODUCT;//整个产品的名称
-        String numer = mTm.getLine1Number(); // 手机号码，有的可得，有的不可得
-        if(numer == null)
-            numer = "0";
-        String OSver = android.os.Build.VERSION.RELEASE;
-        return "手机品牌："+mtyb +"\n手机型号："+mtype+"\n手机名称："+product+"\nAndroid版本:"+ OSver +"\n手机号码："+ numer +"\n手机IMEI号："+imei+"\n手机IESI号："+imsi;
-    }
-    /**
-     * 获取手机MAC地址
-     * 只有手机开启wifi才能获取到mac地址
-     */
-    private String getMacAddress(){
-        String result = "";
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        result = wifiInfo.getMacAddress();
-        return "手机macAdd:" + result;
-    }
-
-    public String getVersionName() {
-        Context context = getApplicationContext();
-        String versionName="Unknown";
-        try {
-             versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        }catch (PackageManager.NameNotFoundException e)
-        {
-            Log.e("SysInfo",e.toString());
-        }
-        return  versionName;
     }
 }

@@ -93,13 +93,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Upload"
-            android:screenOrientation="nosensor">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.nea.nehe.lesson08.Run"
             android:screenOrientation="nosensor">
             <intent-filter>
