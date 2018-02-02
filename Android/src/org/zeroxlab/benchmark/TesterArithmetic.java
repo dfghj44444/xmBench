@@ -70,7 +70,7 @@ public class TesterArithmetic extends Tester {
         }
 
         mTextView = new TextView(this);
-        mTextView.setText("Running benchmark....");
+        mTextView.setText("Running Math benchmark....");
         mTextView.setTextSize(mTextView.getTextSize() + 5);
         setContentView(mTextView);
         startTester();

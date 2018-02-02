@@ -122,7 +122,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
     private final String ladderUrl = "http://192.168.21.58/ladder.php";
 
-    boolean mAutoRun = false;
+    boolean mAutoRun = true;
     boolean mCheckMath = false;
     boolean mCheck2D = false;
     boolean mCheck3D = false;
@@ -130,6 +130,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     boolean mCheckIO = false;
     //boolean mCheckMisc = false;
     boolean mAutoUpload = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         // mflops
         mCases.add(arith);
         mCases.add(scimark2);
-        mCases.add(javascript);
+       // mCases.add(javascript);
        // mCases.add(caseInfo);
         mCategory.get(MATH).add(arith);
         mCategory.get(MATH).add(scimark2);
@@ -418,15 +419,17 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     d2CheckBox = new CheckBox(Benchmark.this);
                     d2CheckBox.setText(D2);
                     d2CheckBox.setOnClickListener(Benchmark.this);
+                    d2CheckBox.setChecked(true);
 
                     d3CheckBox = new CheckBox(Benchmark.this);
                     d3CheckBox.setText(D3);
                     d3CheckBox.setOnClickListener(Benchmark.this);
+                    d3CheckBox.setChecked(true);
 
                     mathCheckBox = new CheckBox(Benchmark.this);
                     mathCheckBox.setText(MATH);
                     mathCheckBox.setOnClickListener(Benchmark.this);
-
+                    mathCheckBox.setChecked(true);
 //                    vmCheckBox = new CheckBox(Benchmark.this);
 //                    vmCheckBox.setText(VM);
 //                    vmCheckBox.setOnClickListener(Benchmark.this);
@@ -434,7 +437,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     ioCheckBox = new CheckBox(Benchmark.this);
                     ioCheckBox.setText(IO);
                     ioCheckBox.setOnClickListener(Benchmark.this);
-
+                    ioCheckBox.setChecked(true);
 //                    miscCheckBox = new CheckBox(Benchmark.this);
 //                    miscCheckBox.setText(MISC);
 //                    miscCheckBox.setOnClickListener(Benchmark.this);
@@ -528,21 +531,25 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     {
         if (v == mRun)
         {
-            int numberOfCaseChecked = 0;
-            for (int i = 0; i < mCheckList.length; i++)
+            if(mAutoRun)
             {
-                if (mCheckList[i].isChecked())
-                {
-                    mCases.get(i).reset();
-                    numberOfCaseChecked++;
-                }
-                else
-                {
-                    mCases.get(i).clear();
-                }
+                for (int i = 0; i < mCheckList.length; i++)
+                      mCases.get(i).reset();
+                    runCase(mCases);
             }
-            if (numberOfCaseChecked > 0)
-                runCase(mCases);
+            else {
+                int numberOfCaseChecked = 0;
+                for (int i = 0; i < mCheckList.length; i++) {
+                    if (mCheckList[i].isChecked()) {
+                        mCases.get(i).reset();
+                        numberOfCaseChecked++;
+                    } else {
+                        mCases.get(i).clear();
+                    }
+                }
+                if (numberOfCaseChecked > 0)
+                    runCase(mCases);
+            }
         } else if (v == mShow) {
             String result = getResult();
             Log.i(TAG,"\n\n"+result+"\n\n");
