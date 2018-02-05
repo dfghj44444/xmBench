@@ -10,6 +10,9 @@ import android.util.Log;
 import com.android.grafika.gles.EglCore;
 import com.android.grafika.gles.OffscreenSurface;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -25,7 +28,8 @@ import java.util.regex.Pattern;
 
 public class GLinfoProvider {
     private volatile static GLinfoProvider instance;
-    private String cacheINfoString="";
+    private JSONObject cacheInfoJSON=null;
+    private JSONObject cacheEGLJSON=null;
     private String cacheExtString ="";
     private GLinfoProvider (){
 
@@ -41,18 +45,35 @@ public class GLinfoProvider {
         }
         return instance ;
     }
-    public String GetGLESExtInfo()
+
+    public String GetEGLInfo() throws  JSONException
     {
-        if(cacheINfoString.length()<1) {
-            getGpuInfo();
+        if(cacheEGLJSON == null) {
+                GetGpuInfo();
         }
-        return cacheExtString;
+        return cacheEGLJSON.toString(2);
+    }
+
+    public String GetGLESExtInfoString() throws  JSONException
+    {
+        if(cacheInfoJSON == null) {
+            GetGpuInfo();
+        }
+        return cacheInfoJSON.get("extensions").toString();
+    }
+
+    public String GetEGLExtInfoString() throws  JSONException
+    {
+        if(cacheEGLJSON == null) {
+                GetGpuInfo();
+        }
+        return cacheEGLJSON.get("extensions").toString();
     }
 
     //for Graphic Card
-    public String getGpuInfo() {
-        if(cacheINfoString.length()<1) {
-
+    public String GetGpuInfo() throws JSONException{
+        if(cacheInfoJSON==null) {
+            cacheInfoJSON = new JSONObject();
             // We need a GL context to examine, which means we need an EGL surface.  Create a 1x1
             // pbuffer.
             EglCore eglCore = new EglCore(null, EglCore.FLAG_TRY_GLES3);
@@ -60,32 +81,25 @@ public class GLinfoProvider {
             OffscreenSurface surface = new OffscreenSurface(eglCore, 1, 1);
             surface.makeCurrent();
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("\nvendor    : ");
-            sb.append(isES3 ? GLES30.glGetString(GLES30.GL_VENDOR) : GLES20.glGetString(GLES20.GL_VENDOR));
-            sb.append("\nversion   : ");
-            sb.append(isES3 ? GLES30.glGetString(GLES30.GL_VERSION) : GLES20.glGetString(GLES20.GL_VERSION));
-            sb.append("\nrenderer  : ");
-            sb.append(isES3 ? GLES30.glGetString(GLES30.GL_RENDERER) : GLES20.glGetString(GLES20.GL_RENDERER));
-            sb.append("\nextensions:\n");
-            sb.append(formatExtensions(isES3 ? GLES30.glGetString(GLES30.GL_EXTENSIONS) : GLES20.glGetString(GLES20.GL_EXTENSIONS)));
-            sb.append("\n------------- EGL Information --------------");
-            sb.append("\nvendor    : ");
-            sb.append(eglCore.queryString(EGL14.EGL_VENDOR));
-            sb.append("\nversion   : ");
-            sb.append(eglCore.queryString(EGL14.EGL_VERSION));
-            sb.append("\nclient API: ");
-            sb.append(eglCore.queryString(EGL14.EGL_CLIENT_APIS));
-            sb.append("\nextensions:\n");
-            cacheExtString=eglCore.queryString(EGL14.EGL_EXTENSIONS);
-            sb.append(formatExtensions(cacheExtString));
+            cacheInfoJSON.put("vender",isES3 ? GLES30.glGetString(GLES30.GL_VENDOR) : GLES20.glGetString(GLES20.GL_VENDOR));
+            cacheInfoJSON.put("version",isES3 ? GLES30.glGetString(GLES30.GL_VERSION) : GLES20.glGetString(GLES20.GL_VERSION));
+            cacheInfoJSON.put("renderer", isES3 ? GLES30.glGetString(GLES30.GL_RENDERER) : GLES20.glGetString(GLES20.GL_RENDERER));
+            cacheInfoJSON.put("extensions",isES3 ? GLES30.glGetString(GLES30.GL_EXTENSIONS) : GLES20.glGetString(GLES20.GL_EXTENSIONS));
+
+            cacheEGLJSON = new JSONObject();
+            cacheEGLJSON.put("vendor",eglCore.queryString(EGL14.EGL_VENDOR));
+            cacheEGLJSON.put("version",eglCore.queryString(EGL14.EGL_VERSION));
+            cacheEGLJSON.put("client API",eglCore.queryString(EGL14.EGL_CLIENT_APIS));
+            cacheEGLJSON.put("extensions",eglCore.queryString(EGL14.EGL_EXTENSIONS));
+            //put into cacheExtJSON
+
+            cacheExtString=formatExtensions(cacheExtString);
 
             surface.release();
             eglCore.release();
 
-            cacheINfoString = sb.toString();
         }
-        return cacheINfoString;
+        return cacheInfoJSON.toString(2);
     }
 
 
@@ -99,9 +113,6 @@ public class GLinfoProvider {
             sb.append(values[i]);
             sb.append("\n");
         }
-
-
         return sb.toString();
     }
-
 }

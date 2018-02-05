@@ -33,6 +33,8 @@ import android.content.*;
 
 import com.sys.info.GLinfoProvider;
 
+import org.json.JSONException;
+
 import java.util.HashSet;
 
 
@@ -149,7 +151,14 @@ public class Report extends Activity implements View.OnClickListener {
             attr += "\"imei\":\"" + GetImei() + "\",";
             attr += "\"name\":\"" +  android.os.Build.MODEL + "\",";
             attr += "\"brand\":\"" + android.os.Build.BRAND + "\",";
-            attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfo() + "\",";
+            try {
+                attr += "\"eglext\":\"" + GLinfoProvider.getSingleton().GetEGLExtInfoString() + "\",";
+                attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfoString() + "\",";
+            }
+            catch (JSONException e)
+            {
+                Log.e("",e.toString());
+            }
             StringBuffer _mJSON = new StringBuffer(mJSONResult);
 
             _mJSON.insert(1, attr);
