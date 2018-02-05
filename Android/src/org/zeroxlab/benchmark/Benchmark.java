@@ -433,17 +433,17 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     d2CheckBox = new CheckBox(Benchmark.this);
                     d2CheckBox.setText(D2);
                     d2CheckBox.setOnClickListener(Benchmark.this);
-                    d2CheckBox.setChecked(true);
+                    //d2CheckBox.setChecked(true);
 
                     d3CheckBox = new CheckBox(Benchmark.this);
                     d3CheckBox.setText(D3);
                     d3CheckBox.setOnClickListener(Benchmark.this);
-                    d3CheckBox.setChecked(true);
+                    //d3CheckBox.setChecked(true);
 
                     mathCheckBox = new CheckBox(Benchmark.this);
                     mathCheckBox.setText(MATH);
                     mathCheckBox.setOnClickListener(Benchmark.this);
-                    mathCheckBox.setChecked(true);
+                    //mathCheckBox.setChecked(true);
 //                    vmCheckBox = new CheckBox(Benchmark.this);
 //                    vmCheckBox.setText(VM);
 //                    vmCheckBox.setOnClickListener(Benchmark.this);
@@ -451,7 +451,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
                     ioCheckBox = new CheckBox(Benchmark.this);
                     ioCheckBox.setText(IO);
                     ioCheckBox.setOnClickListener(Benchmark.this);
-                    ioCheckBox.setChecked(true);
+                    //ioCheckBox.setChecked(true);
 //                    miscCheckBox = new CheckBox(Benchmark.this);
 //                    miscCheckBox.setText(MISC);
 //                    miscCheckBox.setOnClickListener(Benchmark.this);

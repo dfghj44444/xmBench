@@ -24,7 +24,7 @@ public class SysInfoActivity extends Activity {
         TextView theText = (TextView) this.findViewById(R.id.txtCPU);
         theText.setText("-----------------手机------------------- \n");
         try {
-            theText.append(SysInfoProvider.getSingleton().getInfo(_ctx,(TelephonyManager) this.getSystemService(TELEPHONY_SERVICE)));
+            theText.append(SysInfoProvider.getSingleton().GetInfoString(_ctx,(TelephonyManager) this.getSystemService(TELEPHONY_SERVICE)));
             theText.append("\n -----------------屏幕信息------------------- \n" );
             theText.append(SysInfoProvider.getSingleton().getScreenInfo(this));
 

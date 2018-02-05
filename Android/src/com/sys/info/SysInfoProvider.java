@@ -98,7 +98,14 @@ public class SysInfoProvider {
     /**
      * 获取IMEI号，IESI号，手机型号
      */
-    public String getInfo(Context ctx,TelephonyManager mTm) throws JSONException{
+    public String GetInfoString(Context ctx,TelephonyManager mTm) throws JSONException{
+        if(cachePhoneInfo==null) {
+            GetInfo(ctx,mTm);
+        }
+        return cachePhoneInfo.toString(2);
+    }
+
+    public JSONObject GetInfo(Context ctx,TelephonyManager mTm) throws JSONException {
         if(cachePhoneInfo==null) {
             String imei = mTm.getDeviceId();
             if (imei == null)
@@ -125,7 +132,7 @@ public class SysInfoProvider {
             cachePhoneInfo.put("内存",getTotalMemory(ctx));
             cachePhoneInfo.put("Root",isRoot());
         }
-        return cachePhoneInfo.toString(2);
+        return cachePhoneInfo;
     }
     /**
      * 获得内核版本

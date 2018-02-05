@@ -31,10 +31,13 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.content.*;
 
+import com.sys.info.CpuInfoProvider;
 import com.sys.info.GLinfoProvider;
+import com.sys.info.SysInfoProvider;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.HashSet;
 
 
@@ -152,10 +155,18 @@ public class Report extends Activity implements View.OnClickListener {
             attr += "\"name\":\"" +  android.os.Build.MODEL + "\",";
             attr += "\"brand\":\"" + android.os.Build.BRAND + "\",";
             try {
+                Context ctx = getApplicationContext();
+                TelephonyManager mTm = ( TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
                 attr += "\"eglext\":\"" + GLinfoProvider.getSingleton().GetEGLExtInfoString() + "\",";
                 attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfoString() + "\",";
+                attr += "\"cpuinfo\":[" + CpuInfoProvider.getSingleton().getCPUInfoJSON() + "],";
+                attr += "\"screeninfo\":[" + SysInfoProvider.getSingleton().GetInfo(ctx,mTm).toString() + "],";
             }
             catch (JSONException e)
+            {
+                Log.e("",e.toString());
+            }
+            catch (IOException e)
             {
                 Log.e("",e.toString());
             }
