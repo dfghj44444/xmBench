@@ -3,7 +3,7 @@
 
     package="org.zeroxlab.benchmark"
     android:versionCode="19"
-    android:versionName="1.1.28">
+    android:versionName="1.2.0">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -21,7 +21,7 @@
         android:label="好测">
         <activity
             android:name=".Benchmark"
-            android:label="邢敏好测"
+            android:label="玩友好测"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
