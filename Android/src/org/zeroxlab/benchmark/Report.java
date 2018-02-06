@@ -161,6 +161,7 @@ public class Report extends Activity implements View.OnClickListener {
                 attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfoString() + "\",";
                 attr += "\"cpuinfo\":[" + CpuInfoProvider.getSingleton().getCPUInfoJSON() + "],";
                 attr += "\"screeninfo\":[" + SysInfoProvider.getSingleton().GetInfo(ctx,mTm).toString() + "],";
+                attr += "\"memory\":\"" + SysInfoProvider.getSingleton().getTotalMemory(ctx).toString() + "\",";
             }
             catch (JSONException e)
             {

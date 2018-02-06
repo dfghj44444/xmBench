@@ -194,7 +194,7 @@ public class SysInfoProvider {
     /**
      * 获得系统总内存
      */
-    private  String getTotalMemory(Context ctx) {
+    public  String getTotalMemory(Context ctx) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             ActivityManager actManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
             ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
