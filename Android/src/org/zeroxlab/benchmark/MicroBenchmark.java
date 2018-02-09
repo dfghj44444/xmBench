@@ -23,14 +23,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-
 import android.util.Log;
 import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
-
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 class MicroBenchmark extends Thread {
     final static int FAILED = -1;
@@ -91,37 +91,29 @@ class MicroBenchmark extends Thread {
         updateState(DONE);
     }
 
-//    private String xml2json(String theXml){
-//        String ret = "";
-//        XmlMapper xmlMapper = new XmlMapper();
-//        try {
-//            JsonNode node = xmlMapper.readTree(theXml);
-//
-//            ObjectMapper jsonMapper = new ObjectMapper();
-//            ret = jsonMapper.writeValueAsString(node);
-//        }
-//        catch (JsonProcessingException e)
-//        {
-//            String test  =e.toString();
-//        }
-//        catch (IOException e)
-//        {
-//            System.out.println(e.toString());
-//        }
-//        return  ret;
-//    }
 
     String postJSONObject(String myurl, String parameters) {
-        HttpURLConnection conn = null;
+        HttpsURLConnection conn = null;
         try {
             StringBuffer response = null;
             URL url = new URL(myurl);
-            conn = (HttpURLConnection) url.openConnection();
+
+            conn = (HttpsURLConnection) url.openConnection();
+            conn.setHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    /** if it necessarry get url verfication */
+                    //return HttpsURLConnection.getDefaultHostnameVerifier().verify("your_domain.com", session);
+                    return true;
+                }
+            });
+
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
+
             OutputStream out = new BufferedOutputStream(conn.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
             writer.write(parameters);
@@ -145,6 +137,7 @@ class MicroBenchmark extends Thread {
                     Log.e(TAG, "responseCode"+responseCode);
             }
         } catch (IOException ex) {
+            Log.e( "postJSONObject: ", ex.toString() );
             ex.printStackTrace();
         } finally {
             if (conn != null) {

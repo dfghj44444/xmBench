@@ -21,8 +21,6 @@ package org.zeroxlab.benchmark;
 
 import android.os.PowerManager;
 import android.util.Log;
-
-
 import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -50,15 +48,9 @@ import android.widget.ScrollView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TextView;
-
 import com.sys.info.SysInfoActivity;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.StringBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,16 +59,9 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
-import org.crender.NdkGlActivity;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.opensolaris.hub.libmicro.NativeCaseMicro;
-import org.zeroxlab.benchmark.R;
-import org.zeroxlab.byteunix.NativeCaseUbench;
 import org.zeroxlab.utils.BenchUtil;
 
 /* Construct a basic UI */
@@ -121,7 +106,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
     private HashMap< String, HashSet<Case> > mCategory = new HashMap< String, HashSet<Case> >();
 
-    private final String ladderUrl = "http://192.168.21.58/ladder.php";
+    private final String ladderUrl = "https://xmperf.haowanyou.com/ladder.php";
 
     boolean mCheckMath = false;
     boolean mCheck2D = false;
@@ -130,7 +115,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     boolean mCheckIO = false;
     //boolean mCheckMisc = false;
     boolean mAutoUpload = true;
-    boolean mAutoRun = false;
+    boolean mAutoRun = true;//自动运行开关
 
 
     @Override
@@ -458,7 +443,7 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
 
 
                     TextView mWebInfo = new TextView(Benchmark.this);
-                    mWebInfo.setText("手机天梯:\nhttp://benchmark.bojoy.com/ladder.php");
+                    mWebInfo.setText("手机天梯:\nhttps://xmperf.haowanyou.com/ladder.php");
 
                     LinearLayout mButtonContainer = new LinearLayout(Benchmark.this);
                     mRun = new Button(Benchmark.this);

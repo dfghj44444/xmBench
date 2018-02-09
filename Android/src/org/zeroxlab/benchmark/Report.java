@@ -30,13 +30,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.*;
-
 import com.sys.info.CpuInfoProvider;
 import com.sys.info.GLinfoProvider;
 import com.sys.info.SysInfoProvider;
-
 import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -171,12 +168,16 @@ public class Report extends Activity implements View.OnClickListener {
             {
                 Log.e("",e.toString());
             }
+
+            if(mJSONResult==null)
+                return;
+
             StringBuffer _mJSON = new StringBuffer(mJSONResult);
 
             _mJSON.insert(1, attr);
             Log.e(TAG, _mJSON.toString());
 
-            String theURL = "http://" + getString(R.string.default_appspot) + ":80/";
+            String theURL = getString(R.string.default_appspot) + "/";
             mb = new MicroBenchmark(_mJSON.toString() , theURL , benchName , mUploadHandler) ;
             // this is not really a hash
             mHash =  benchName;

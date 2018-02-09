@@ -148,7 +148,6 @@ public class TesterIO extends Tester {
             {
                 while ((readLine = bufferedReader.readLine()) != null) {
                     String upperC = readLine.toUpperCase();
-                    System.out.println(upperC);
 
                     writer.write(upperC);
                     writer.newLine();
@@ -159,7 +158,7 @@ public class TesterIO extends Tester {
             writer.close();
 
         } catch (IOException e) {
-            System.out.println("Error.");
+            Log.i(TAG,"Error.");
             e.printStackTrace();
             return "wrtie fail";
         }catch (Exception e) {

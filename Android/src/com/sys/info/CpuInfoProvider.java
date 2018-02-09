@@ -69,7 +69,7 @@ public class CpuInfoProvider {
                 cpuMaxFreq = String.valueOf(Integer.parseInt(cpuMaxFreq) / 1024);
                 reader.close();
             } catch (IOException e) {
-                cpuMaxFreq = cpuInfo[1];
+                cpuMaxFreq = cpuInfo[1];//type 2
                 Log.e("info", e.toString());
             }
             cacheCpuInfo="CPU型号:" + cpuInfo[0] + "\nCPU频率：" + cpuMaxFreq +"MHz\nCPU核心数目："+ getNumCores() +"\n支持的指令集:\n"+GetArchitecture();

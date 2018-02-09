@@ -17,6 +17,7 @@ repositories {
 }
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
 }
 
 android {
@@ -39,7 +40,7 @@ android {
         release.setRoot('build-types/release')
     }
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 15
         externalNativeBuild {
             cmake {
                 cFlags "-std=c++11 -fexceptions"

@@ -13,7 +13,7 @@
     <string name="btn_login_google">登录获取API-key</string>
 
     <string name="default_benchname">PublicPage</string>
-    <string name="default_appspot">192.168.21.58</string>
+    <string name="default_appspot">https://xmperf.haowanyou.com</string>
     <string name="default_email">wangxnigmin@bojoy.com</string>
     <string name="default_api">0000</string>
 

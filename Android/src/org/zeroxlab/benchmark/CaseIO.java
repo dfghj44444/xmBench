@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 public class CaseIO  extends Case {
 
-
     protected Bundle mInfo[];
 
     public static int Repeat = 1;
-    public static int Round  = 1;
+    public static int Round  = 10;
 
     public CaseIO() {
         super("CaseIO", TesterIO.FullName, Repeat, Round);
