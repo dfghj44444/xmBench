@@ -156,6 +156,9 @@ public class Report extends Activity implements View.OnClickListener {
                 TelephonyManager mTm = ( TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
                 attr += "\"eglext\":\"" + GLinfoProvider.getSingleton().GetEGLExtInfoString() + "\",";
                 attr += "\"glesext\":\"" + GLinfoProvider.getSingleton().GetGLESExtInfoString() + "\",";
+                //attr += "\"cpuname\":\"" + CpuInfoProvider.getSingleton().GetCPUHardware() + "
+                // ,";
+                attr += "\"gpuname\":\"" + GLinfoProvider.getSingleton().GetGPURenderer() + "\",";
                 attr += "\"cpuinfo\":[" + CpuInfoProvider.getSingleton().getCPUInfoJSON() + "],";
                 attr += "\"screeninfo\":[" + SysInfoProvider.getSingleton().GetInfo(ctx,mTm).toString() + "],";
                 attr += "\"memory\":\"" + SysInfoProvider.getSingleton().getTotalMemory(ctx).toString() + "\",";

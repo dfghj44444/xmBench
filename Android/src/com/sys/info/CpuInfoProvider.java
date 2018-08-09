@@ -53,7 +53,7 @@ public class CpuInfoProvider {
                 str2 = localBufferedReader.readLine();
                 arrayOfString = str2.split("\\s+");
                 for (int i = 2; i < arrayOfString.length; i++) {
-                    cpuInfo[0] = cpuInfo[0] + arrayOfString[i] + " ";
+                     cpuInfo[0] = cpuInfo[0] + arrayOfString[i] + " ";
                 }
                 str2 = localBufferedReader.readLine();
                 arrayOfString = str2.split("\\s+");

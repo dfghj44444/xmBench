@@ -41,7 +41,7 @@ android {
     }
     defaultConfig {
         minSdkVersion 15
-        externalNativeBuild {
+        /*externalNativeBuild {
             cmake {
                 cFlags "-std=c++11 -fexceptions"
                 // 指定只用clang编译器
@@ -56,19 +56,19 @@ android {
             // libraries Gradle should build and package with your APK.
             abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a',
                     'arm64-v8a'
-        }
+        }*/
     }
     productFlavors {
     }
 
-
-
+/*
     externalNativeBuild {
         cmake {
             path 'native/CMakeLists.txt'
         }
     }
     sourceSets { main { jni.srcDirs = ["native"] } }
+*/
 }
 
 repositories {

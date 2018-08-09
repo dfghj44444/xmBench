@@ -30,7 +30,7 @@ public class SysInfoActivity extends Activity {
 
             theText.append("\n -----------------CPU------------------- \n" );
             theText.append( CpuInfoProvider.getSingleton().getCpuInfo());
-                theText.append("\n" + CpuInfoProvider.getSingleton().getCPUInfoJSON());
+            theText.append("\n" + CpuInfoProvider.getSingleton().getCPUInfoJSON());
 
             theText.append("\n -----------------GPU-------------------- \n" );
             theText.append(GLinfoProvider.getSingleton().GetGpuInfo());
@@ -42,7 +42,7 @@ public class SysInfoActivity extends Activity {
         {
             Log.e( "InitViews ", e.toString());
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             Log.d("",e.toString());
         }

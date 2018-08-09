@@ -69,6 +69,14 @@ public class GLinfoProvider {
         }
         return cacheEGLJSON.get("extensions").toString();
     }
+    public String GetGPURenderer() throws  JSONException
+    {
+        if(cacheInfoJSON == null) {
+            GetGpuInfo();
+        }
+        return cacheInfoJSON.get("renderer").toString();
+    }
+
 
     //for Graphic Card
     public String GetGpuInfo() throws JSONException{

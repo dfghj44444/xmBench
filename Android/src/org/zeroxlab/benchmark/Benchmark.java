@@ -147,18 +147,18 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
         mCategory.put(D2, new HashSet<Case>());
         mCategory.put(D3, new HashSet<Case>());
         mCategory.put(MATH, new HashSet<Case>());
-       // mCategory.put(VM, new HashSet<Case>());
+        // mCategory.put(VM, new HashSet<Case>());
         mCategory.put(IO, new HashSet<Case>());
-       // mCategory.put(MISC, new HashSet<Case>());
+        // mCategory.put(MISC, new HashSet<Case>());
         mCategory.put(INFO, new HashSet<Case>());
         // mflops
         mCases.add(arith);
         mCases.add(scimark2);
-       // mCases.add(javascript);
-       // mCases.add(caseInfo);
+        // mCases.add(javascript);
+        // mCases.add(caseInfo);
         mCategory.get(MATH).add(arith);
         mCategory.get(MATH).add(scimark2);
-       // mCategory.get(MISC).add(javascript);
+        // mCategory.get(MISC).add(javascript);
 
         // 2d
         mCases.add(canvas);
@@ -654,7 +654,6 @@ public class Benchmark extends TabActivity implements View.OnClickListener {
     }
 
    int  CalcFinalScore(JSONArray theArray)   {
-
 
         ArrayList<Double> mathScores = new ArrayList();
         ArrayList<Double> d2Scores   = new ArrayList();

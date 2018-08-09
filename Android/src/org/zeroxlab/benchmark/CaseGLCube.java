@@ -119,8 +119,6 @@ public class CaseGLCube extends Case {
         if(score<0)
             score=0;
 
-
         return score;
     }
-
 }
